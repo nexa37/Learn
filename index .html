@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LearnPathFlow — Learn. Build. Grow.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--p:#5B2D8E;--pd:#3B1A6A;--pl:#7B4DBE;--g:#C8A84B;--gl:#E8C86A;--black:#0A0A0F;--dark:#0F0D18;--card:#161224;--card2:#1C1730;--border:rgba(200,168,75,0.18);--b2:rgba(255,255,255,0.07);--white:#fff;--muted:rgba(255,255,255,0.52);}
+html{scroll-behavior:smooth;}
+body{font-family:Inter,sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,10,15,0.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-text{font-family:"Bebas Neue",sans-serif;font-size:1.4rem;letter-spacing:0.07em;}
+.logo-text span{color:var(--g);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.8rem;font-weight:500;color:var(--muted);letter-spacing:0.05em;cursor:pointer;transition:color 0.2s;}
+.nav-links a:hover{color:var(--g);}
+.nav-ctas{display:flex;gap:0.8rem;}
+.nbtn{padding:9px 20px;border-radius:9px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;letter-spacing:0.04em;}
+.nbtn-ghost{background:transparent;border:1px solid var(--b2);color:var(--white);}
+.nbtn-ghost:hover{border-color:var(--g);color:var(--g);}
+.nbtn-gold{background:linear-gradient(135deg,var(--g),var(--gl));color:var(--black);}
+.nbtn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,168,75,0.3);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{width:22px;height:2px;background:var(--white);border-radius:2px;display:block;}
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:110px 5% 80px;background:radial-gradient(ellipse at 65% 40%,rgba(91,45,142,0.22) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(200,168,75,0.05) 0%,transparent 45%),var(--black);}
+.hero-inner{max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(91,45,142,0.15);border:1px solid rgba(91,45,142,0.3);border-radius:20px;padding:6px 14px;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--g);margin-bottom:1.4rem;}
+.hero-title{font-family:"Bebas Neue",sans-serif;font-size:clamp(2.8rem,5vw,4.8rem);letter-spacing:0.03em;line-height:0.93;margin-bottom:1.4rem;}
+.hero-title .g{color:var(--g);}
+.hero-title .out{-webkit-text-stroke:2px rgba(255,255,255,0.2);color:transparent;}
+.hero-sub{font-size:0.98rem;color:var(--muted);line-height:1.85;margin-bottom:2rem;font-weight:300;max-width:460px;}
+.hero-btns{display:flex;flex-direction:row;gap:0.8rem;flex-wrap:wrap;margin-bottom:2rem;align-items:center;}
+.hbtn{padding:14px 28px;border-radius:11px;font-size:0.9rem;font-weight:800;cursor:pointer;border:none;transition:all 0.25s;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;white-space:nowrap;}
+.hbtn-gold{background:linear-gradient(135deg,var(--g),var(--gl));color:var(--black);}
+.hbtn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,168,75,0.3);}
+.hbtn-ghost{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--white);}
+.hbtn-ghost:hover{border-color:var(--g);color:var(--g);}
+.hero-trust{display:flex;align-items:center;gap:12px;}
+.avatars{display:flex;}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--black);margin-left:-7px;font-size:0.7rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.av:first-child{margin-left:0;}
+.trust-txt{font-size:0.76rem;color:var(--muted);}
+.trust-txt strong{color:var(--white);}
+/* HERO CARD */
+.hero-visual{position:relative;}
+.hcard{background:var(--card);border:1px solid var(--b2);border-radius:20px;padding:26px;position:relative;overflow:hidden;}
+.hcard::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--p),var(--g));}
+.hcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.hcard-title{font-weight:700;font-size:0.92rem;}
+.hcard-badge{background:rgba(76,175,80,0.15);border:1px solid rgba(76,175,80,0.3);color:#81C784;font-size:0.62rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.08em;}
+.hc-row{background:var(--card2);border-radius:11px;padding:14px;margin-bottom:9px;border:1px solid var(--b2);}
+.hc-row-title{font-weight:700;font-size:0.8rem;margin-bottom:3px;}
+.hc-row-sub{font-size:0.7rem;color:var(--muted);margin-bottom:8px;}
+.pb{background:rgba(255,255,255,0.08);border-radius:6px;height:5px;overflow:hidden;}
+.pb-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--p),var(--g));}
+.hc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px;}
+.hcs{background:var(--card2);border-radius:9px;padding:11px;text-align:center;border:1px solid var(--b2);}
+.hcs-num{font-family:"Bebas Neue",sans-serif;font-size:1.4rem;color:var(--g);line-height:1;}
+.hcs-lbl{font-size:0.6rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px;}
+.fbadge{position:absolute;background:var(--card2);border:1px solid var(--border);border-radius:11px;padding:10px 14px;font-size:0.75rem;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:0 8px 28px rgba(0,0,0,0.4);}
+/* FEATURES */
+#features{padding:90px 5%;background:var(--dark);}
+.sec-inner{max-width:1160px;margin:0 auto;}
+.eyebrow{font-size:0.67rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--g);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+.eyebrow::before{content:"";width:18px;height:2px;background:var(--g);border-radius:1px;}
+.sec-title{font-family:"Bebas Neue",sans-serif;font-size:clamp(2rem,4vw,3.4rem);letter-spacing:0.04em;line-height:1;margin-bottom:1rem;}
+.sec-lead{font-size:0.92rem;color:var(--muted);line-height:1.85;font-weight:300;max-width:520px;}
+.gc{color:var(--g);}
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem;}
+.fc{background:var(--card);border:1px solid var(--b2);border-radius:17px;padding:28px 24px;transition:all 0.3s;}
+.fc:hover{transform:translateY(-4px);border-color:rgba(91,45,142,0.35);}
+.fc-icon{width:50px;height:50px;border-radius:12px;background:rgba(91,45,142,0.18);border:1px solid rgba(91,45,142,0.25);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.1rem;}
+.fc-title{font-weight:700;font-size:0.97rem;margin-bottom:0.5rem;}
+.fc-desc{font-size:0.8rem;color:var(--muted);line-height:1.75;}
+/* HOW IT WORKS */
+#how{padding:90px 5%;background:var(--black);}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;position:relative;}
+.steps::before{content:"";position:absolute;top:30px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(91,45,142,0.5),var(--g),rgba(91,45,142,0.5),transparent);}
+.step{text-align:center;padding:16px;}
+.step-num{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",sans-serif;font-size:1.5rem;margin:0 auto 1.1rem;position:relative;z-index:1;}
+.step-title{font-weight:700;font-size:0.9rem;margin-bottom:0.4rem;}
+.step-desc{font-size:0.76rem;color:var(--muted);line-height:1.7;}
+/* COURSES PREVIEW */
+#courses-preview{padding:90px 5%;background:var(--dark);}
+.course-lock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem;}
+.clc{background:var(--card);border:1px solid var(--b2);border-radius:16px;overflow:hidden;transition:all 0.3s;position:relative;}
+.clc:hover{transform:translateY(-4px);border-color:rgba(91,45,142,0.35);}
+.clc-thumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;position:relative;}
+.clc-lock{position:absolute;top:10px;right:10px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:4px 8px;font-size:0.65rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.clc-body{padding:16px;}
+.clc-title{font-weight:700;font-size:0.88rem;margin-bottom:5px;color:var(--white);}
+.clc-desc{font-size:0.74rem;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+.clc-meta{display:flex;gap:10px;font-size:0.66rem;color:rgba(255,255,255,0.35);}
+.clc-btn{width:100%;padding:10px;border-radius:8px;background:rgba(91,45,142,0.3);border:1px solid rgba(91,45,142,0.4);color:rgba(255,255,255,0.6);font-weight:700;font-size:0.76rem;cursor:pointer;margin-top:10px;transition:all 0.2s;}
+.clc-btn:hover{background:var(--p);border-color:var(--p);color:var(--white);}
+.courses-cta{text-align:center;margin-top:2.5rem;}
+.courses-cta p{font-size:0.88rem;color:var(--muted);margin-bottom:1.2rem;}
+/* MODAL OVERLAY */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(12px);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-bg.open{display:flex;}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:40px 36px;width:100%;max-width:440px;position:relative;}
+.modal::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--p),var(--g));border-radius:22px 22px 0 0;}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--b2);border:none;color:var(--white);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.modal-icon{font-size:2.5rem;margin-bottom:1rem;}
+.modal-title{font-family:"Bebas Neue",sans-serif;font-size:2rem;letter-spacing:0.04em;margin-bottom:0.4rem;}
+.modal-sub{font-size:0.8rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.6;}
+.mform{display:flex;flex-direction:column;gap:0.9rem;}
+.minput{background:rgba(255,255,255,0.05);border:1px solid var(--b2);border-radius:10px;padding:13px 16px;font-size:0.86rem;font-family:Inter,sans-serif;color:var(--white);outline:none;width:100%;transition:border-color 0.2s;}
+.minput:focus{border-color:var(--pl);}
+.mbtn{width:100%;padding:14px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);border:none;font-weight:800;font-size:0.9rem;cursor:pointer;transition:all 0.2s;margin-top:0.2rem;}
+.mbtn:hover{background:linear-gradient(135deg,var(--pl),var(--p));}
+.mswitch{font-size:0.78rem;color:var(--muted);text-align:center;margin-top:0.9rem;}
+.mswitch a{color:var(--g);text-decoration:none;font-weight:600;cursor:pointer;}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+/* PLATFORM (hidden until logged in) */
+#platform{display:none;min-height:100vh;background:var(--black);padding:84px 5% 60px;}
+.dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.dwelcome{font-family:"Bebas Neue",sans-serif;font-size:2rem;letter-spacing:0.04em;}
+.dwelcome span{color:var(--g);}
+.dtabs{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2rem;}
+.dtab{padding:8px 18px;border-radius:20px;font-size:0.76rem;font-weight:600;cursor:pointer;border:1px solid var(--b2);background:transparent;color:var(--muted);transition:all 0.2s;}
+.dtab.active,.dtab:hover{background:var(--p);border-color:var(--p);color:var(--white);}
+.dsg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:2rem;}
+.ds{padding:22px;border-radius:14px;background:var(--card);border:1px solid var(--b2);}
+.ds-num{font-family:"Bebas Neue",sans-serif;font-size:2rem;color:var(--g);line-height:1;}
+.ds-lbl{font-size:0.7rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px;}
+.sec-lbl{font-weight:700;font-size:1rem;margin-bottom:1rem;}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;}
+.cc{background:var(--card);border:1px solid var(--b2);border-radius:15px;overflow:hidden;transition:all 0.3s;}
+.cc:hover{transform:translateY(-4px);border-color:rgba(91,45,142,0.4);}
+.ct{height:120px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+.cb{padding:16px;}
+.tag{display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;margin-bottom:7px;}
+.tag-b{background:rgba(76,175,80,0.15);color:#81C784;border:1px solid rgba(76,175,80,0.3);}
+.tag-i{background:rgba(200,168,75,0.15);color:var(--g);border:1px solid rgba(200,168,75,0.3);}
+.tag-a{background:rgba(244,67,54,0.15);color:#E57373;border:1px solid rgba(244,67,54,0.3);}
+.cc-title{font-weight:700;font-size:0.87rem;margin-bottom:5px;}
+.cc-desc{font-size:0.73rem;color:var(--muted);line-height:1.6;margin-bottom:8px;}
+.cc-meta{font-size:0.66rem;color:rgba(255,255,255,0.35);margin-bottom:8px;}
+.cbtn{width:100%;padding:10px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);border:none;font-weight:700;font-size:0.76rem;cursor:pointer;transition:all 0.2s;}
+.cbtn:hover{opacity:0.9;}
+/* COURSE VIEWER */
+#cv{display:none;position:fixed;inset:0;background:var(--black);z-index:5000;overflow-y:auto;padding-top:68px;}
+.cvnav{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(10,10,15,0.97);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:5001;}
+.cvback{background:rgba(255,255,255,0.08);border:none;color:var(--white);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:0.8rem;}
+.cvtitle{font-family:"Bebas Neue",sans-serif;font-size:1rem;letter-spacing:0.06em;}
+.cvprog{font-size:0.72rem;color:var(--muted);}
+.cvbody{max-width:760px;margin:0 auto;padding:36px 20px 80px;}
+.cv-nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--b2);}
+.cvprev{padding:10px 20px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid var(--b2);color:var(--white);cursor:pointer;font-weight:600;font-size:0.82rem;}
+.cvnext{padding:10px 20px;border-radius:10px;background:var(--p);border:none;color:var(--white);cursor:pointer;font-weight:700;font-size:0.82rem;}
+.cvdots{display:flex;gap:6px;}
+.cvdot{width:9px;height:9px;border-radius:50%;cursor:pointer;transition:all 0.2s;}
+/* QUIZ */
+#quizModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:6000;align-items:flex-start;justify-content:center;padding:80px 20px 20px;overflow-y:auto;}
+#quizModal.active{display:flex;}
+.qbox{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px;max-width:580px;width:100%;}
+.qtitle{font-family:"Bebas Neue",sans-serif;font-size:1.8rem;letter-spacing:0.04em;margin-bottom:0.4rem;}
+.qsub{font-size:0.82rem;color:var(--muted);margin-bottom:1.5rem;}
+.qsubmit{width:100%;padding:13px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);border:none;font-weight:700;font-size:0.88rem;cursor:pointer;margin-top:1.2rem;}
+.qback{width:100%;padding:9px;border-radius:10px;background:transparent;border:1px solid var(--b2);color:var(--muted);font-size:0.8rem;cursor:pointer;margin-top:0.6rem;}
+/* NOTIF */
+.notif{position:fixed;top:80px;right:20px;padding:12px 18px;border-radius:10px;background:var(--card);border:1px solid var(--p);color:var(--white);font-size:0.82rem;z-index:9000;display:none;max-width:280px;}
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid var(--b2);padding:36px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.fl{font-family:"Bebas Neue",sans-serif;font-size:1.2rem;letter-spacing:0.06em;}
+.fl span{color:var(--g);}
+.fcopy{font-size:0.72rem;color:rgba(255,255,255,0.25);}
+.flinks{display:flex;gap:1.4rem;}
+.flinks a{font-size:0.72rem;color:rgba(255,255,255,0.35);}
+.flinks a:hover{color:var(--g);}
+/* RESPONSIVE */
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;}.hero-visual{display:none;}.feat-grid,.course-lock-grid,.cg,.dsg{grid-template-columns:1fr 1fr;}.steps{grid-template-columns:1fr 1fr;}.steps::before{display:none;}.nav-links{display:none;}.hamburger{display:flex;}}
+@media(max-width:520px){.feat-grid,.course-lock-grid,.cg,.dsg,.steps{grid-template-columns:1fr;}.mrow{grid-template-columns:1fr;}}
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --p:#5B2D8E;--pd:#3B1A6A;--pl:#7B4DBE;
+  --g:#C8A84B;--gl:#E8C86A;
+  --bg:#0A0A0F;--dark:#0F0D18;--card:#161224;--card2:#1C1730;
+  --b1:rgba(200,168,75,0.18);--b2:rgba(255,255,255,0.07);
+  --white:#fff;--muted:rgba(255,255,255,0.52);--muted2:rgba(255,255,255,0.3);
+  --green:#4CAF50;--red:#E57373;--sidebar:240px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--white);line-height:1.6;overflow-x:hidden;}
+button,input,select,textarea{font-family:Inter,sans-serif;}
+a{text-decoration:none;color:inherit;}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar);background:var(--dark);border-right:1px solid var(--b2);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:200;transition:transform 0.3s;}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:20px 20px 16px;border-bottom:1px solid var(--b2);}
+.sb-logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--p),var(--pd));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.sb-logo-text{font-family:"Bebas Neue",sans-serif;font-size:1.2rem;letter-spacing:0.07em;}
+.sb-logo-text span{color:var(--g);}
+.sb-nav{flex:1;overflow-y:auto;padding:16px 12px;}
+.sb-section{margin-bottom:8px;}
+.sb-label{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted2);padding:0 8px;margin-bottom:6px;margin-top:12px;}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:0.82rem;font-weight:500;color:var(--muted);transition:all 0.2s;border:none;background:none;width:100%;text-align:left;}
+.sb-item:hover{background:rgba(255,255,255,0.05);color:var(--white);}
+.sb-item.active{background:rgba(200,168,75,0.12);color:var(--g);font-weight:600;}
+.sb-item.active .sb-icon{color:var(--g);}
+.sb-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0;}
+.sb-divider{height:1px;background:var(--b2);margin:10px 0;}
+.sb-bottom{padding:12px;}
+.sb-logout{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:0.82rem;font-weight:500;color:#E57373;background:none;border:none;width:100%;transition:all 0.2s;}
+.sb-logout:hover{background:rgba(229,115,115,0.1);}
+
+/* MAIN */
+.main{flex:1;margin-left:var(--sidebar);display:flex;flex-direction:column;min-height:100vh;}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--b2);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.menu-btn{display:none;background:none;border:none;color:var(--white);cursor:pointer;font-size:1.3rem;padding:4px;}
+.header-title{font-weight:700;font-size:1rem;}
+.header-right{display:flex;align-items:center;gap:12px;}
+.dhbtn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.1rem;position:relative;padding:6px;border-radius:8px;transition:all 0.2s;}
+.dhbtn:hover{color:var(--white);background:var(--b2);}
+.notif-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--g);border-radius:50%;border:2px solid var(--bg);}
+.avatar-btn{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.8rem;cursor:pointer;border:2px solid var(--b1);transition:all 0.2s;color:var(--white);}
+.avatar-btn:hover{border-color:var(--g);}
+
+/* DROPDOWN */
+.dropdown{position:absolute;top:54px;right:16px;background:var(--card2);border:1px solid var(--b2);border-radius:14px;min-width:180px;padding:8px;z-index:999;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.dropdown.open{display:block;}
+.dd-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;font-size:0.82rem;color:var(--muted);transition:all 0.2s;}
+.dd-item:hover{background:var(--b2);color:var(--white);}
+.dd-item.red{color:#E57373;}
+.dd-item.red:hover{background:rgba(229,115,115,0.1);}
+.dd-divider{height:1px;background:var(--b2);margin:4px 0;}
+
+/* PAGE CONTENT */
+.page{display:none;padding:28px 24px;flex:1;}
+.page.active{display:block;}
+
+/* WELCOME BANNER */
+.welcome-banner{background:linear-gradient(135deg,rgba(91,45,142,0.25),rgba(200,168,75,0.08));border:1px solid var(--b1);border-radius:18px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative;overflow:hidden;}
+.welcome-banner::before{content:"";position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(91,45,142,0.3),transparent 70%);pointer-events:none;}
+.wb-name{font-family:"Bebas Neue",sans-serif;font-size:1.8rem;letter-spacing:0.04em;margin-bottom:4px;}
+.wb-name span{color:var(--g);}
+.wb-sub{font-size:0.82rem;color:var(--muted);margin-bottom:10px;}
+.wb-motiv{display:inline-flex;align-items:center;gap:6px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.2);border-radius:20px;padding:5px 12px;font-size:0.72rem;font-weight:600;color:var(--g);}
+.wb-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.4rem;flex-shrink:0;border:3px solid var(--b1);}
+
+/* STAT CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.stat-card{background:var(--card);border:1px solid var(--b2);border-radius:14px;padding:18px;transition:all 0.3s;}
+.stat-card:hover{border-color:rgba(91,45,142,0.35);}
+.sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:10px;}
+.sc-num{font-family:"Bebas Neue",sans-serif;font-size:2rem;line-height:1;color:var(--g);}
+.sc-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-top:4px;}
+
+/* SECTION HEADER */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.sec-title{font-weight:700;font-size:1rem;}
+.sec-link{font-size:0.78rem;color:var(--g);cursor:pointer;font-weight:600;}
+
+/* CONTINUE LEARNING */
+.continue-card{background:linear-gradient(135deg,var(--card),rgba(91,45,142,0.1));border:1px solid rgba(91,45,142,0.25);border-radius:18px;padding:24px;display:flex;gap:20px;align-items:flex-start;position:relative;overflow:hidden;margin-bottom:24px;}
+.continue-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--p),var(--g));}
+.cc-thumb{width:72px;height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;}
+.cc-body{flex:1;min-width:0;}
+.cc-tag{display:inline-block;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;background:rgba(91,45,142,0.2);border:1px solid rgba(91,45,142,0.35);color:var(--pl);margin-bottom:8px;}
+.cc-title{font-weight:800;font-size:1rem;margin-bottom:4px;}
+.cc-lesson{font-size:0.78rem;color:var(--g);font-weight:600;margin-bottom:4px;}
+.cc-desc{font-size:0.78rem;color:var(--muted);margin-bottom:14px;}
+.cc-pbar-wrap{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.pbar{background:rgba(255,255,255,0.08);border-radius:6px;height:7px;overflow:hidden;flex:1;}
+.pbar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--p),var(--g));transition:width 0.8s ease;}
+.cc-pct{font-size:0.75rem;font-weight:700;color:var(--g);flex-shrink:0;}
+.cc-meta{font-size:0.72rem;color:var(--muted);margin-bottom:16px;}
+.btn-continue{padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--gl));color:var(--bg);border:none;font-weight:800;font-size:0.82rem;cursor:pointer;transition:all 0.2s;}
+.btn-continue:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,168,75,0.3);}
+
+/* COURSE CARDS */
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.course-card{background:var(--card);border:1px solid var(--b2);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;}
+.course-card:hover{transform:translateY(-3px);border-color:rgba(91,45,142,0.35);}
+.ccard-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+.ccard-body{padding:16px;}
+.ccard-cat{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g);margin-bottom:6px;}
+.ccard-title{font-weight:700;font-size:0.88rem;margin-bottom:4px;line-height:1.4;}
+.ccard-desc{font-size:0.72rem;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.ccard-pbar-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.ccard-pct{font-size:0.72rem;font-weight:700;color:var(--g);flex-shrink:0;}
+.ccard-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.ccard-lessons{font-size:0.7rem;color:var(--muted);}
+.status-badge{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;}
+.status-inprog{background:rgba(200,168,75,0.15);color:var(--g);border:1px solid rgba(200,168,75,0.3);}
+.status-notstarted{background:rgba(255,255,255,0.06);color:var(--muted);border:1px solid var(--b2);}
+.status-completed{background:rgba(76,175,80,0.15);color:#81C784;border:1px solid rgba(76,175,80,0.3);}
+.btn-sm{width:100%;padding:9px;border-radius:8px;border:none;font-weight:700;font-size:0.76rem;cursor:pointer;transition:all 0.2s;}
+.btn-sm-purple{background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);}
+.btn-sm-purple:hover{opacity:0.9;}
+.btn-sm-outline{background:transparent;border:1px solid var(--b2);color:var(--muted);}
+.btn-sm-outline:hover{border-color:var(--p);color:var(--white);}
+
+/* PROGRESS PAGE */
+.progress-hero{background:var(--card);border:1px solid var(--b2);border-radius:18px;padding:28px;margin-bottom:20px;}
+.prog-title{font-weight:700;font-size:0.95rem;margin-bottom:6px;}
+.prog-sub{font-size:0.78rem;color:var(--muted);margin-bottom:16px;}
+.prog-bar-big{background:rgba(255,255,255,0.08);border-radius:8px;height:12px;overflow:hidden;margin-bottom:8px;}
+.prog-bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--p),var(--g));}
+.prog-pct-row{display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);}
+.prog-pct-row strong{color:var(--g);font-size:0.95rem;}
+
+.weekly-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:16px;}
+.day-col{text-align:center;}
+.day-label{font-size:0.6rem;color:var(--muted);letter-spacing:0.06em;margin-bottom:8px;text-transform:uppercase;}
+.day-dots{display:flex;flex-direction:column;gap:4px;align-items:center;}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(91,45,142,0.35);}
+.dot.active{background:var(--g);}
+
+/* QUIZ PAGE */
+.quiz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.quiz-card{background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:20px;transition:all 0.3s;}
+.quiz-card:hover{border-color:rgba(91,45,142,0.35);}
+.qc-course{font-size:0.65rem;color:var(--g);font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.qc-title{font-weight:700;font-size:0.92rem;margin-bottom:4px;}
+.qc-meta{font-size:0.72rem;color:var(--muted);margin-bottom:14px;}
+.qc-score{font-family:"Bebas Neue",sans-serif;font-size:2rem;color:var(--g);line-height:1;margin-bottom:4px;}
+.qc-score-label{font-size:0.7rem;color:var(--muted);}
+
+/* QUIZ MODAL */
+#quizOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:3000;display:none;align-items:flex-start;justify-content:center;padding:80px 20px 20px;overflow-y:auto;}
+#quizOverlay.open{display:flex;}
+.quiz-modal{background:var(--card);border:1px solid var(--b1);border-radius:20px;max-width:600px;width:100%;padding:36px;}
+.qm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.qm-title{font-family:"Bebas Neue",sans-serif;font-size:1.6rem;letter-spacing:0.04em;}
+.qm-close{background:var(--b2);border:none;color:var(--white);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;}
+.qm-progress{font-size:0.72rem;color:var(--muted);margin-bottom:20px;}
+.qm-pbar{background:rgba(255,255,255,0.08);border-radius:6px;height:5px;margin-bottom:24px;overflow:hidden;}
+.qm-pfill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--p),var(--g));transition:width 0.3s;}
+.qm-question{font-weight:700;font-size:0.95rem;margin-bottom:18px;line-height:1.5;}
+.qm-options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.qm-opt{padding:13px 16px;border-radius:10px;background:var(--card2);border:1px solid var(--b2);cursor:pointer;font-size:0.85rem;color:rgba(255,255,255,0.82);transition:all 0.2s;text-align:left;width:100%;}
+.qm-opt:hover{border-color:var(--p);background:rgba(91,45,142,0.1);}
+.qm-opt.selected{border-color:var(--p);background:rgba(91,45,142,0.2);color:var(--white);}
+.qm-opt.correct{border-color:#81C784;background:rgba(76,175,80,0.2);color:#fff;}
+.qm-opt.wrong{border-color:#E57373;background:rgba(229,115,115,0.2);color:#fff;}
+.qm-btns{display:flex;gap:10px;}
+.qm-btn{padding:11px 22px;border-radius:10px;font-weight:700;font-size:0.85rem;cursor:pointer;border:none;transition:all 0.2s;}
+.qm-btn-back{background:var(--b2);color:var(--white);}
+.qm-btn-next{background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);flex:1;}
+.qm-btn-submit{background:linear-gradient(135deg,var(--g),var(--gl));color:var(--bg);flex:1;}
+
+/* QUIZ RESULT */
+.quiz-result{text-align:center;padding:20px 0;}
+.qr-icon{font-size:3.5rem;margin-bottom:12px;}
+.qr-title{font-family:"Bebas Neue",sans-serif;font-size:2.2rem;letter-spacing:0.04em;margin-bottom:8px;}
+.qr-score{font-family:"Bebas Neue",sans-serif;font-size:4rem;color:var(--g);line-height:1;margin-bottom:4px;}
+.qr-correct{font-size:0.88rem;color:var(--muted);margin-bottom:24px;}
+.qr-btns{display:flex;gap:10px;justify-content:center;}
+
+/* PROFILE PAGE */
+.profile-layout{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:start;}
+.profile-tabs{background:var(--card);border:1px solid var(--b2);border-radius:14px;overflow:hidden;}
+.ptab{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;font-size:0.82rem;color:var(--muted);transition:all 0.2s;border:none;background:none;width:100%;text-align:left;}
+.ptab:hover{background:var(--b2);color:var(--white);}
+.ptab.active{background:rgba(200,168,75,0.1);color:var(--g);font-weight:600;}
+.ptab-divider{height:1px;background:var(--b2);}
+.profile-panel{display:none;}
+.profile-panel.active{display:block;}
+.panel-card{background:var(--card);border:1px solid var(--b2);border-radius:16px;padding:28px;margin-bottom:16px;}
+.panel-title{font-weight:700;font-size:1rem;margin-bottom:4px;}
+.panel-sub{font-size:0.78rem;color:var(--muted);margin-bottom:22px;}
+.avatar-upload{text-align:center;margin-bottom:24px;}
+.big-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.8rem;margin:0 auto 10px;border:3px solid var(--b1);}
+.change-photo-btn{background:var(--b2);border:1px solid var(--b2);color:var(--muted);padding:7px 16px;border-radius:8px;cursor:pointer;font-size:0.78rem;transition:all 0.2s;}
+.change-photo-btn:hover{color:var(--white);border-color:var(--p);}
+.form-group{margin-bottom:16px;}
+.form-label{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g);margin-bottom:6px;display:block;}
+.form-input{width:100%;background:var(--card2);border:1px solid var(--b2);border-radius:10px;padding:12px 14px;font-size:0.85rem;color:var(--white);outline:none;transition:border-color 0.2s;}
+.form-input:focus{border-color:var(--pl);}
+.form-select{width:100%;background:var(--card2);border:1px solid var(--b2);border-radius:10px;padding:12px 14px;font-size:0.85rem;color:var(--white);outline:none;-webkit-appearance:none;cursor:pointer;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn-save{padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--g),var(--gl));color:var(--bg);border:none;font-weight:800;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.btn-save:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(200,168,75,0.25);}
+.btn-danger{padding:12px 28px;border-radius:10px;background:rgba(229,115,115,0.1);border:1px solid rgba(229,115,115,0.3);color:#E57373;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.btn-danger:hover{background:rgba(229,115,115,0.2);}
+.btn-outline-w{padding:12px 28px;border-radius:10px;background:transparent;border:1px solid var(--b2);color:var(--muted);font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.btn-outline-w:hover{border-color:var(--white);color:var(--white);}
+
+/* TOGGLE SWITCH */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--b2);}
+.toggle-row:last-child{border-bottom:none;}
+.toggle-info{flex:1;}
+.toggle-name{font-size:0.85rem;font-weight:500;}
+.toggle-desc{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+.toggle{position:relative;width:44px;height:24px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;}
+.toggle-slider{position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:12px;cursor:pointer;transition:all 0.3s;}
+.toggle-slider::before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:all 0.3s;}
+.toggle input:checked + .toggle-slider{background:var(--g);}
+.toggle input:checked + .toggle-slider::before{transform:translateX(20px);}
+
+/* APPEARANCE CARDS */
+.appear-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.appear-opt{border:2px solid var(--b2);border-radius:12px;padding:16px;cursor:pointer;text-align:center;transition:all 0.2s;}
+.appear-opt.selected{border-color:var(--g);}
+.appear-opt:hover{border-color:rgba(200,168,75,0.4);}
+.appear-preview{height:50px;border-radius:8px;margin-bottom:10px;}
+.appear-label{font-size:0.8rem;font-weight:600;}
+
+/* PREF OPTIONS */
+.pref-options{display:flex;flex-direction:column;gap:8px;}
+.pref-opt{padding:11px 14px;border-radius:10px;border:1px solid var(--b2);cursor:pointer;font-size:0.83rem;color:var(--muted);transition:all 0.2s;}
+.pref-opt:hover{border-color:var(--p);color:var(--white);}
+.pref-opt.selected{border-color:var(--g);background:rgba(200,168,75,0.08);color:var(--g);font-weight:600;}
+
+/* CONFIRM MODAL */
+#confirmModal{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;}
+#confirmModal.open{display:flex;}
+.confirm-box{background:var(--card);border:1px solid var(--b1);border-radius:18px;padding:36px;max-width:400px;width:100%;text-align:center;}
+.confirm-icon{font-size:2.5rem;margin-bottom:12px;}
+.confirm-title{font-weight:700;font-size:1rem;margin-bottom:8px;}
+.confirm-sub{font-size:0.82rem;color:var(--muted);margin-bottom:24px;line-height:1.6;}
+.confirm-btns{display:flex;gap:10px;justify-content:center;}
+
+/* NOTIFICATION */
+.toast{position:fixed;top:80px;right:20px;padding:12px 18px;border-radius:10px;background:var(--card2);border:1px solid var(--p);color:var(--white);font-size:0.82rem;z-index:9000;display:none;max-width:280px;box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+.toast.show{display:block;}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:60px 20px;}
+.empty-icon{font-size:3rem;margin-bottom:14px;}
+.empty-title{font-weight:700;font-size:1rem;margin-bottom:6px;}
+.empty-sub{font-size:0.82rem;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+.btn-primary{padding:12px 24px;border-radius:10px;background:linear-gradient(135deg,var(--p),var(--pd));color:var(--white);border:none;font-weight:700;font-size:0.85rem;cursor:pointer;transition:all 0.2s;}
+.btn-primary:hover{opacity:0.9;}
+
+/* MOBILE NAV */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--dark);border-top:1px solid var(--b2);z-index:200;padding:8px 0 env(safe-area-inset-bottom);}
+.mnav-items{display:flex;justify-content:space-around;}
+.mnav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;cursor:pointer;font-size:0.6rem;color:var(--muted);transition:all 0.2s;background:none;border:none;flex:1;}
+.mnav-item.active{color:var(--g);}
+.mnav-icon{font-size:1.2rem;}
+
+/* OVERLAY for mobile sidebar */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:199;}
+.sidebar-overlay.open{display:block;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-overlay.open{display:block;}
+  .main{margin-left:0;}
+  .mobile-nav{display:block;}
+  .main{padding-bottom:70px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .courses-grid{grid-template-columns:1fr 1fr;}
+  .quiz-grid{grid-template-columns:1fr;}
+  .profile-layout{grid-template-columns:1fr;}
+  .profile-tabs{display:flex;overflow-x:auto;border-radius:12px;}
+  .ptab-divider{display:none;}
+  .ptab{white-space:nowrap;border-right:1px solid var(--b2);}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:520px){
+  .courses-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .continue-card{flex-direction:column;}
+  .page{padding:20px 16px;}
+  .header{padding:0 16px;}
+  .welcome-banner{flex-direction:column;gap:12px;padding:20px;}
+  .wb-avatar{display:none;}
+  .appear-grid{grid-template-columns:1fr 1fr;}
+}
+
+
+#landing{display:block;}
+#dashboard-app{display:none;}
+.mobile-nav{display:none;}
+body.light-mode{--bg:#f0f0f5;--dark:#e4e4ee;--card:#fff;--card2:#f5f5fa;--b1:rgba(91,45,142,0.2);--b2:rgba(0,0,0,0.08);--white:#1a1a2e;--muted:rgba(26,26,46,0.55);--muted2:rgba(26,26,46,0.35);}
+#cv{display:none;position:fixed;inset:0;background:#0A0A0F;z-index:5000;overflow-y:auto;padding-top:68px;}
+.cvnav{position:fixed;top:0;left:0;right:0;height:68px;background:rgba(10,10,15,0.97);border-bottom:1px solid rgba(200,168,75,0.18);display:flex;align-items:center;justify-content:space-between;padding:0 5%;z-index:5001;}
+.cvback{background:rgba(255,255,255,0.08);border:none;color:#fff;padding:7px 16px;border-radius:8px;cursor:pointer;font-size:0.82rem;font-weight:600;}
+.cvbody{max-width:720px;margin:0 auto;padding:32px 20px 100px;}
+.cvdots{display:flex;gap:6px;}
+.cvdot{width:9px;height:9px;border-radius:50%;cursor:pointer;transition:all 0.2s;}
+.cvprev{padding:10px 20px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;cursor:pointer;font-weight:600;font-size:0.82rem;}
+.cvnext{padding:10px 20px;border-radius:10px;background:linear-gradient(135deg,#5B2D8E,#3B1A6A);border:none;color:#fff;cursor:pointer;font-weight:700;font-size:0.82rem;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:900px){
+  .dsidebar,.aside{transform:translateX(-100%);}
+  .dsidebar.open,.aside.open{transform:translateX(0);}
+  .dmain,.amain{margin-left:0;}
+  .mobile-nav{display:block;}
+  .dmain{padding-bottom:68px;}
+  .stats-grid,.ov-grid{grid-template-columns:repeat(2,1fr);}
+  .courses-grid,.quiz-grid{grid-template-columns:1fr;}
+  .profile-layout{grid-template-columns:1fr;}
+  .profile-tabs{display:flex;overflow-x:auto;border-radius:11px;}
+  .ptab-div{display:none;}
+  .ptab{white-space:nowrap;border-right:1px solid var(--b2);}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:520px){
+  .continue-card{flex-direction:column;}
+  .dpage{padding:18px 14px;}
+  .dheader{padding:0 14px;}
+  .welcome-banner{flex-direction:column;gap:10px;padding:18px;}
+  .wb-avatar{display:none;}
+}
+
+
+/* ── NAV RESPONSIVE ── */
+nav#navbar { box-sizing:border-box; }
+@media(max-width:768px){
+  #navLinks{ display:none !important; }
+  #navCtas{ display:none !important; }
+  .hamburger#landMenuBtn{ display:flex !important; }
+}
+@media(min-width:769px){
+  .hamburger#landMenuBtn{ display:none !important; }
+}
+/* ── LANDING BODY PADDING ── */
+#landing section:first-of-type, #landing #hero { padding-top:66px; }
+
+@media(max-width:520px){
+  
+}
+</style>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+
+<div class="notif" id="notif"></div>
+
+<!-- NAV -->
+<nav id="navbar" style="position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,10,15,0.95);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,168,75,0.18);height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;">
+  <div class="logo" id="landLogoBtn" style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+    <div class="logo-icon" style="width:36px;height:36px;background:linear-gradient(135deg,#5B2D8E,#3B1A6A);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;">🎓</div>
+    <div class="logo-text" style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;letter-spacing:0.07em;">Learn<span style="color:#C8A84B;">Path</span>Flow</div>
+  </div>
+  <ul class="nav-links" id="navLinks" style="display:flex;gap:2rem;list-style:none;">
+    <li><a data-lscroll="features" style="font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;text-decoration:none;">Features</a></li>
+    <li><a data-lscroll="how" style="font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;text-decoration:none;">How It Works</a></li>
+    <li><a data-lscroll="land-courses" style="font-size:0.8rem;font-weight:500;color:rgba(255,255,255,0.6);cursor:pointer;text-decoration:none;">Courses</a></li>
+  </ul>
+  <div id="navCtas" style="display:flex;gap:0.8rem;align-items:center;">
+    <button id="landLoginBtn" style="padding:11px 22px;border-radius:9px;background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:0.85rem;font-weight:700;cursor:pointer;">Log In</button>
+    <button id="landSignupBtn" style="padding:11px 24px;border-radius:9px;background:linear-gradient(135deg,#C8A84B,#E8C86A);color:#0A0A0F;font-size:0.88rem;font-weight:800;cursor:pointer;border:none;letter-spacing:0.02em;">Start Free</button>
+  </div>
+  <button class="hamburger" id="landMenuBtn" style="display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;"><span style="width:22px;height:2px;background:#fff;border-radius:2px;display:block;"></span><span style="width:22px;height:2px;background:#fff;border-radius:2px;display:block;"></span><span style="width:22px;height:2px;background:#fff;border-radius:2px;display:block;"></span></button>
+</nav>
+
+<!-- LANDING PAGE -->
+<div id="landing">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pill">🚀 Free for Everyone — No Credit Card</div>
+      <h1 class="hero-title">
+        STOP WATCHING.<br>
+        <span class="g">START</span><br>
+        <span class="out">DOING.</span>
+      </h1>
+      <p class="hero-sub">LearnPathFlow is the free platform that teaches you real, career-ready skills through practical lessons and quizzes — not endless videos. Sign up and start learning in 60 seconds.</p>
+      <div class="hero-btns">
+        <button class="hbtn hbtn-gold" id="landHeroSignup">Start Learning Free</button>
+        <button class="hbtn hbtn-ghost" id="landHeroView">Browse Courses</button>
+      </div>
+      <div class="hero-trust">
+        <div class="avatars">
+          <div class="av" style="background:linear-gradient(135deg,#5B2D8E,#3B1A6A);">AK</div>
+          <div class="av" style="background:linear-gradient(135deg,#1a3a5e,#0a1a2e);">JM</div>
+          <div class="av" style="background:linear-gradient(135deg,#1a3a1a,#0a1a0a);">SC</div>
+          <div class="av" style="background:linear-gradient(135deg,#4a2a1a,#2a100a);">RB</div>
+        </div>
+        <div class="trust-txt"><strong>2,400+ learners</strong> already enrolled this month</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hcard">
+        <div class="hcard-head"><div class="hcard-title">My Learning Dashboard</div><div class="hcard-badge">Active</div></div>
+        <div class="hc-row"><div class="hc-row-title">💼 Launch Your First Business</div><div class="hc-row-sub">Lesson 3 of 4 — Your Simple Business Plan</div><div class="pb"><div class="pb-fill" style="width:72%;"></div></div></div>
+        <div class="hc-row"><div class="hc-row-title">💰 Personal Finance 101</div><div class="hc-row-sub">Lesson 1 of 4 — Where Your Money Goes</div><div class="pb"><div class="pb-fill" style="width:25%;"></div></div></div>
+        <div class="hc-row"><div class="hc-row-title">🎯 Goal Setting</div><div class="hc-row-sub">Not started yet</div><div class="pb"><div class="pb-fill" style="width:0%;"></div></div></div>
+        <div class="hc-stats">
+          <div class="hcs"><div class="hcs-num">11</div><div class="hcs-lbl">Courses</div></div>
+          <div class="hcs"><div class="hcs-num">44</div><div class="hcs-lbl">Lessons</div></div>
+          <div class="hcs"><div class="hcs-num">$0</div><div class="hcs-lbl">Cost</div></div>
+        </div>
+      </div>
+      <div class="fbadge" style="bottom:-18px;left:-18px;">✅ Quiz Passed — 3 of 4 correct</div>
+      <div class="fbadge" style="top:-14px;right:-14px;">🔥 3-day learning streak</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="sec-inner">
+    <div class="eyebrow">Why LearnPathFlow</div>
+    <h2 class="sec-title">Built for People Who Want <span class="gc">Real Results</span></h2>
+    <p class="sec-lead">Not another platform full of videos nobody finishes. Every lesson has a clear action step you can use today.</p>
+    <div class="feat-grid">
+      <div class="fc"><div class="fc-icon">📚</div><div class="fc-title">11 Practical Courses</div><div class="fc-desc">Business, finance, writing, speaking, networking, productivity, social media, critical thinking, time management and more. All built for real life.</div></div>
+      <div class="fc"><div class="fc-icon">🧠</div><div class="fc-title">Instant Quiz Feedback</div><div class="fc-desc">Every course ends with a quiz. See exactly which answers were right (green) and wrong (red) the moment you submit. No guessing what you missed.</div></div>
+      <div class="fc"><div class="fc-icon">📊</div><div class="fc-title">Personal Dashboard</div><div class="fc-desc">Track your courses, quiz scores, and learning streaks in a clean personal dashboard that shows your progress at a glance.</div></div>
+      <div class="fc"><div class="fc-icon">📱</div><div class="fc-title">Works on Any Device</div><div class="fc-desc">Designed and tested on iPhone. Learn on your commute, lunch break, or any 10-minute window you have. No app download needed.</div></div>
+      <div class="fc"><div class="fc-icon">⚡</div><div class="fc-title">Action Every Lesson</div><div class="fc-desc">Every lesson ends with a clear real-world action step. Not just theory — built to create actual change in your life within 30 days.</div></div>
+      <div class="fc"><div class="fc-icon">🆓</div><div class="fc-title">100% Free Forever</div><div class="fc-desc">No freemium tricks, no paywalled lessons, no credit card. Every single course, lesson, and quiz is free and will stay that way.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="sec-inner" style="text-align:center;">
+    <div class="eyebrow" style="justify-content:center;">How It Works</div>
+    <h2 class="sec-title">Learning in <span class="gc">4 Simple Steps</span></h2>
+    <p class="sec-lead" style="margin:0 auto 0 auto;">No complicated setup. Sign up and start learning in under 2 minutes.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-title">Create Free Account</div><div class="step-desc">Sign up with just your name and email. No credit card, no phone number required.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-title">Pick a Course</div><div class="step-desc">Choose from 11 practical courses across business, finance, writing, speaking and more.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-title">Read and Learn</div><div class="step-desc">Step-by-step lessons with real action steps. Take the quiz when you finish each course.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-title">Apply and Grow</div><div class="step-desc">Use what you learned today. Track your growth in your personal dashboard.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES PREVIEW -->
+<section id="land-courses">
+  <div class="sec-inner">
+    <div class="eyebrow">Our Courses</div>
+    <h2 class="sec-title">11 Courses. <span class="gc">All Free.</span></h2>
+    <p class="sec-lead">Sign up to unlock all courses and start learning immediately.</p>
+    <div class="course-lock-grid">
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0a1a2e);">💼<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">Launch Your First Business in 30 Days</div><div class="clc-desc">From idea to launch — validate, plan, and start your business with zero experience.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Beginner</span></div><button class="clc-btn" data-course="business">Enroll Free</button></div></div>
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#1a3a1a,#0a1a0a);">💰<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">Personal Finance 101: Control Your Money</div><div class="clc-desc">Budgeting, saving, investing basics, and building wealth from scratch.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Beginner</span></div><button class="clc-btn" data-course="finance">Enroll Free</button></div></div>
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#2a1a3a,#100a1a);">🌱<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">High Performance Habits and Productivity</div><div class="clc-desc">Build systems and habits used by top performers to achieve goals consistently.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Advanced</span></div><button class="clc-btn" data-course="development">Enroll Free</button></div></div>
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#2a1a5e,#1a0a3e);">📝<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">Content Writing and Copywriting</div><div class="clc-desc">Write content that grabs attention, builds trust, and drives real action.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Beginner</span></div><button class="clc-btn" data-course="writing">Enroll Free</button></div></div>
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#1a3a5e,#0a1a3e);">🗣️<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">Public Speaking and Communication</div><div class="clc-desc">Speak with clarity and confidence in any situation.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Beginner</span></div><button class="clc-btn" data-course="speaking">Enroll Free</button></div></div>
+      <div class="clc"><div class="clc-thumb" style="background:linear-gradient(135deg,#4a2a1a,#2a100a);">🎯<div class="clc-lock">🔓 Free</div></div><div class="clc-body"><div class="clc-title">Goal Setting and Life Planning</div><div class="clc-desc">The proven system for setting goals you actually achieve.</div><div class="clc-meta"><span>4 lessons</span><span>1 hour</span><span>Beginner</span></div><button class="clc-btn" data-course="goals">Enroll Free</button></div></div>
+    </div>
+    <div class="courses-cta">
+      <p>+ 5 more courses including Networking, Time Management, Critical Thinking, Social Media, and How the Internet Works</p>
+      <button class="hbtn hbtn-gold" id="landSeeAllBtn">Get Free Access to All 11 Courses</button>
+    </div>
+  </div>
+</section>
+
+
+<section style="background:linear-gradient(135deg,#3B1A6A,#5B2D8E);padding:80px 5%;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(200,168,75,0.12) 0%,transparent 60%);pointer-events:none;"></div>
+  <div style="position:relative;z-index:1;">
+    <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#C8A84B;margin-bottom:1rem;">Join Thousands of Learners</div>
+    <h2 style="font-family:Bebas Neue,sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);letter-spacing:0.04em;color:#fff;margin-bottom:1rem;">READY TO START LEARNING?</h2>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);margin-bottom:2rem;max-width:440px;margin-left:auto;margin-right:auto;">Join thousands of learners building real skills for free. No credit card. No catch. Just learning.</p>
+    <button id="landCtaBtn" onclick="openLandModal('signup')" style="padding:16px 36px;border-radius:11px;background:linear-gradient(135deg,#C8A84B,#E8C86A);color:#0A0A0F;border:none;font-weight:800;font-size:0.95rem;cursor:pointer;letter-spacing:0.02em;">Start Learning Free Today</button>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">Learn<span>Path</span>Flow</div>
+  <div class="fcopy">2026 LearnPathFlow. All rights reserved. 100% Free Platform.</div>
+  <div class="flinks"><a href="mailto:learnpathflow@gmail.com">learnpathflow@gmail.com</a></div>
+</footer>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-bg" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" id="closeLoginBtn">✕</button>
+    <div class="modal-icon">👋</div>
+    <div class="modal-title">Welcome <span style="color:var(--g);">Back</span></div>
+    <div class="modal-sub">Log in to access your courses and continue learning</div>
+    <div class="mform">
+      <button class="mbtn" id="googleLoginBtn" style="background:#fff;color:#1a1a2e;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;border:none;padding:13px;margin-bottom:4px;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin:4px 0;">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">or</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
+      </div>
+      <input class="minput" type="email" id="loginEmail" placeholder="Email address"/>
+      <input class="minput" type="password" id="loginPass" placeholder="Password"/>
+      <button class="mbtn" id="doLoginBtn">Log In</button>
+    </div>
+    <div class="mswitch">No account? <a id="toSignupLink">Sign up free — takes 30 seconds</a></div>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal-bg" id="signupModal">
+  <div class="modal">
+    <button class="modal-close" id="closeSignupBtn">✕</button>
+    <div class="modal-icon">🎓</div>
+    <div class="modal-title">Join <span style="color:var(--g);">Free</span></div>
+    <div class="modal-sub">Create your account and start learning in 60 seconds — no credit card needed</div>
+    <div class="mform">
+      <button class="mbtn" id="googleSignupBtn" style="background:#fff;color:#1a1a2e;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;border:none;padding:13px;margin-bottom:4px;">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <div style="display:flex;align-items:center;gap:10px;margin:4px 0;">
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
+        <span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">or</span>
+        <div style="flex:1;height:1px;background:rgba(255,255,255,0.1);"></div>
+      </div>
+      <div class="mrow">
+        <input class="minput" type="text" id="signupFirst" placeholder="First name"/>
+        <input class="minput" type="text" id="signupLast" placeholder="Last name" id="pfLast"/>
+      </div>
+      <input class="minput" type="email" id="signupEmail" placeholder="Email address"/>
+      <input class="minput" type="password" id="signupPass" placeholder="Create password (min 6 chars)"/>
+      <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark" style="margin-bottom:10px;transform:scale(0.85);transform-origin:left;"></div>
+      <button class="mbtn" id="doSignupBtn">Create Free Account</button>
+    </div>
+    <div class="mswitch">Already have an account? <a id="toLoginLink">Log in</a></div>
+  </div>
+</div>
+
+<!-- PLATFORM (shown after login) -->
+<div id="platform">
+  <div class="dh">
+    <div><div class="dwelcome">Welcome back, <span id="dashName">Learner</span></div><div style="font-size:0.8rem;color:var(--muted);margin-top:4px;">Pick up where you left off</div></div>
+    <button class="nbtn nbtn-ghost" id="logoutBtn">Log Out</button>
+  </div>
+  <div class="dtabs">
+    <button class="dtab active" data-tab="all">All Courses</button>
+    <button class="dtab" data-tab="profile">My Profile</button>
+  </div>
+  <div id="tab-all">
+    <div class="dsg">
+      <div class="ds"><div class="ds-num">11</div><div class="ds-lbl">Courses Available</div></div>
+      <div class="ds"><div class="ds-num">44</div><div class="ds-lbl">Total Lessons</div></div>
+      <div class="ds"><div class="ds-num">$0</div><div class="ds-lbl">Cost Forever</div></div>
+    </div>
+    <div class="sec-lbl">All Courses — Click any to start</div>
+    <div class="cg">
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#1e3a5f,#0a1a2e);">💼</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Launch Your First Business</div><div class="cc-desc">From idea to launch in 30 days.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="business">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#1a3a1a,#0a1a0a);">💰</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Personal Finance 101</div><div class="cc-desc">Budgeting, saving and investing basics.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="finance">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#2a1a3a,#100a1a);">🌱</div><div class="cb"><div class="tag tag-a">Advanced</div><div class="cc-title">High Performance Habits</div><div class="cc-desc">Build systems used by top performers.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="development">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#2a1a5e,#1a0a3e);">📝</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Content Writing</div><div class="cc-desc">Write content that grabs attention.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="writing">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#1a3a5e,#0a1a3e);">🗣️</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Public Speaking</div><div class="cc-desc">Speak with confidence anywhere.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="speaking">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#4a2a1a,#2a100a);">🎯</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Goal Setting</div><div class="cc-desc">Set and achieve any goal.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="goals">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#3a1a4a,#1a0a2a);">🤝</div><div class="cb"><div class="tag tag-i">Intermediate</div><div class="cc-title">Networking</div><div class="cc-desc">Build connections that open doors.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="networking">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#4a3a1a,#2a1a0a);">⏰</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Time Management</div><div class="cc-desc">Achieve more in less hours.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="time">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#2a3a1a,#101a0a);">🧠</div><div class="cb"><div class="tag tag-i">Intermediate</div><div class="cc-title">Critical Thinking</div><div class="cc-desc">Think clearly and decide wisely.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="thinking">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#1a2a4a,#0a102a);">📱</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">Social Media</div><div class="cc-desc">Grow a brand or business from zero.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="socialmedia">Start Course</button></div></div>
+      <div class="cc"><div class="ct" style="background:linear-gradient(135deg,#1a3a4a,#0a1a2a);">🌐</div><div class="cb"><div class="tag tag-b">Beginner</div><div class="cc-title">How the Internet Works</div><div class="cc-desc">Understand the internet in plain English.</div><div class="cc-meta">4 lessons · 1 hour</div><button class="cbtn" data-course="internet">Start Course</button></div></div>
+    </div>
+  </div>
+  <div id="tab-profile" style="display:none;">
+    <div style="background:var(--card);border:1px solid var(--b2);border-radius:14px;padding:28px;max-width:460px;">
+      <div style="text-align:center;margin-bottom:1.2rem;"><div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 0.8rem;">👤</div><div style="font-weight:700;font-size:0.95rem;" id="profileName">Learner</div><div style="font-size:0.75rem;color:var(--muted);" id="profileEmail"></div></div>
+      <div style="display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1rem;">
+        <div><div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g);margin-bottom:4px;">Display Name</div><input type="text" id="pfirst" class="minput" placeholder="Your name"/></div>
+        <div><div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--g);margin-bottom:4px;">Email</div><input type="email" id="pemail" class="minput" placeholder="your@email.com"/></div>
+      </div>
+      <button class="mbtn" id="saveProfile">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- COURSE VIEWER -->
+<div id="cv">
+  <div class="cvnav">
+    <button class="cvback" id="cvBack">Back</button>
+    <div class="cvtitle" id="cvTitle">Course</div>
+    <div class="cvprog" id="cvProg">Lesson 1 of 4</div>
+  </div>
+  <div class="cvbody">
+    <div id="lessonContent"></div>
+    <div class="cv-nav-btns">
+      <button class="cvprev" id="cvPrev">Previous</button>
+      <div class="cvdots" id="cvDots"></div>
+      <button class="cvnext" id="cvNext">Next Lesson</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="quizModal">
+  <div class="qbox">
+    <div class="qtitle">Course <span style="color:var(--g);">Quiz</span></div>
+    <div class="qsub">Answer all 4 questions. You will see which ones are right and wrong instantly.</div>
+    <div id="quizContent"></div>
+    <button class="qsubmit" id="quizSubmit">Submit Answers</button>
+    <button class="qback" id="quizBack">Go Back to Lessons</button>
+  </div>
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+<!-- CONFIRM MODAL -->
+<div id="confirmModal">
+  <div class="confirm-box">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-title" id="confirmTitle">Are you sure?</div>
+    <div class="confirm-sub" id="confirmSub">This action cannot be undone.</div>
+    <div class="confirm-btns">
+      <button class="btn-outline-w" id="confirmCancel">Cancel</button>
+      <button class="btn-danger" id="confirmOk">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div id="quizOverlay">
+  <div class="quiz-modal">
+    <div class="qm-head">
+      <div class="qm-title" id="qmTitle">Quiz</div>
+      <button class="qm-close" id="qmClose">✕</button>
+    </div>
+    <div class="qm-progress" id="qmProg">Question 1 of 4</div>
+    <div class="qm-pbar"><div class="qm-pfill" id="qmPfill" style="width:25%;"></div></div>
+    <div id="qmBody"></div>
+  </div>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div id="dashboard-app" style="display:none;">
+<div class="dapp">
+<!-- SIDEBAR -->
+<aside class="dsidebar" id="dsidebar">
+  <div class="dsb-logo">
+    <div class="dsb-logo-icon">🎓</div>
+    <div class="dsb-logo-text">Learn<span>Path</span>Flow</div>
+  </div>
+  <nav class="dsb-nav">
+    <div class="dsb-section">
+      <div class="dsb-label">Main</div>
+      <button class="dsb-item active" data-dpage="dashboard"><span class="dsb-icon">🏠</span>Dashboard</button>
+      <button class="dsb-item" data-dpage="mycourses"><span class="dsb-icon">📚</span>My Courses</button>
+      <button class="dsb-item" data-dpage="progress"><span class="dsb-icon">📊</span>Progress</button>
+      <button class="dsb-item" data-dpage="quizzes"><span class="dsb-icon">🧠</span>Quizzes</button>
+    </div>
+    <div class="dsb-divider"></div>
+    <div class="dsb-section">
+      <div class="dsb-label">Account</div>
+      <button class="dsb-item" data-dpage="profile"><span class="dsb-icon">👤</span>Profile</button>
+      <button class="dsb-item" data-dpage="settings"><span class="dsb-icon">⚙️</span>Settings</button>
+    </div>
+    <div class="dsb-divider"></div>
+  </nav>
+  <div class="dsb-bottom">
+    <button class="dsb-logout" id="sbLogout"><span>🚪</span>Log Out</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="dmain">
+  <!-- HEADER -->
+  <header class="dheader">
+    <div class="dheader-left">
+      <button class="dmenu-btn" id="dmenuBtn">☰</button>
+      <div class="header-title" id="dheaderTitle">Dashboard</div>
+    </div>
+    <div class="dheader-right">
+      <button class="dhbtn" title="Notifications">
+        🔔<div class="notif-dot"></div>
+      </button>
+      <div class="davatar-btn" id="davatarBtn">JS</div>
+      <div class="dropdown" id="ddropdown">
+        <div class="dd-item" data-dpage="profile">👤 Profile</div>
+        <div class="dd-item" data-dpage="settings">⚙️ Settings</div>
+        <div class="dd-divider"></div>
+        <div class="dd-item red" id="ddLogout">🚪 Log Out</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD PAGE -->
+  <div class="dpage active" id="dpage-dashboard" data-page="dashboard">
+    <div class="welcome-banner">
+      <div>
+        <div class="wb-name">Welcome back, <span id="wbName">Learner</span> 👋</div>
+        <div class="wb-sub">Keep learning and take the next step toward your goals.</div>
+        <div class="wb-motiv">✨ Small progress every day leads to big results.</div>
+      </div>
+      <div class="wb-avatar" id="wbAvatar">JS</div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(91,45,142,0.18);">📚</div><div class="sc-num">4</div><div class="sc-label">Courses Enrolled</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(76,175,80,0.15);">✅</div><div class="sc-num">1</div><div class="sc-label">Courses Completed</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(200,168,75,0.15);">⚡</div><div class="sc-num">28</div><div class="sc-label">Lessons Completed</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(100,181,246,0.15);">📈</div><div class="sc-num">68%</div><div class="sc-label">Learning Progress</div></div>
+    </div>
+    <div class="sec-head"><div class="sec-title">Continue Learning</div></div>
+    <div class="continue-card">
+      <div class="cc-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0a1a2e);">💼</div>
+      <div class="cc-body">
+        <div class="cc-tag">Business</div>
+        <div class="cc-title">Launch Your First Business in 30 Days</div>
+        <div class="cc-lesson">Lesson 3 — Your Simple Business Plan</div>
+        <div class="cc-desc">Learn how to write a simple one-page business plan that actually works.</div>
+        <div class="cc-pbar-wrap"><div class="pbar"><div class="pbar-fill" style="width:68%;"></div></div><div class="cc-pct">68%</div></div>
+        <div class="cc-meta">3 of 4 lessons completed</div>
+        <button class="btn-continue" id="dashContinueBtn">Continue Learning →</button>
+      </div>
+    </div>
+    <div class="sec-head"><div class="sec-title">My Courses</div><div class="sec-link" data-dpage="mycourses">View All</div></div>
+    <div class="courses-grid" id="dashCourseGrid"></div>
+    <div class="sec-head" style="margin-top:20px;"><div class="sec-title">Quizzes</div><div class="sec-link" data-dpage="quizzes">View All</div></div>
+    <div class="quiz-grid" id="dashQuizGrid"></div>
+  </div>
+
+  <!-- MY COURSES PAGE -->
+  <div class="dpage" id="dpage-mycourses">
+    <div class="sec-head" style="margin-bottom:20px;"><div class="sec-title" style="font-size:1.2rem;">My Courses</div></div>
+    <div class="courses-grid" id="allCourseGrid"></div>
+  </div>
+
+  <!-- PROGRESS PAGE -->
+  <div class="dpage" id="dpage-progress">
+    <div class="sec-head" style="margin-bottom:20px;"><div class="sec-title" style="font-size:1.2rem;">My Progress</div></div>
+    <div class="stats-grid" style="margin-bottom:20px;">
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(91,45,142,0.18);">📚</div><div class="sc-num">4</div><div class="sc-label">Enrolled</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(76,175,80,0.15);">✅</div><div class="sc-num">1</div><div class="sc-label">Completed</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(200,168,75,0.15);">⚡</div><div class="sc-num">28</div><div class="sc-label">Lessons Done</div></div>
+      <div class="stat-card"><div class="sc-icon" style="background:rgba(100,181,246,0.15);">⏱️</div><div class="sc-num">16h</div><div class="sc-label">Learning Time</div></div>
+    </div>
+    <div class="progress-hero">
+      <div class="prog-title">Overall Learning Progress</div>
+      <div class="prog-sub">You have completed 72% of your current learning goals.</div>
+      <div class="prog-bar-big"><div class="prog-bar-fill" style="width:72%;"></div></div>
+      <div class="prog-pct-row"><span>0%</span><strong>72%</strong><span>100%</span></div>
+    </div>
+    <div class="panel-card">
+      <div class="prog-title" style="margin-bottom:4px;">Weekly Learning Activity</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;">Your study activity this week</div>
+      <div class="weekly-grid">
+        <div class="day-col"><div class="day-label">Mon</div><div class="day-dots"><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Tue</div><div class="day-dots"><div class="dot active"></div><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Wed</div><div class="day-dots"><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Thu</div><div class="day-dots"><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Fri</div><div class="day-dots"><div class="dot active"></div><div class="dot active"></div><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Sat</div><div class="day-dots"><div class="dot active"></div><div class="dot active"></div></div></div>
+        <div class="day-col"><div class="day-label">Sun</div><div class="day-dots"><div class="dot"></div></div></div>
+      </div>
+    </div>
+    <div class="panel-card">
+      <div class="prog-title" style="margin-bottom:14px;">Course Progress Breakdown</div>
+      <div id="progressBreakdown"></div>
+    </div>
+  </div>
+
+  <!-- QUIZZES PAGE -->
+  <div class="dpage" id="dpage-quizzes">
+    <div class="sec-head" style="margin-bottom:20px;"><div class="sec-title" style="font-size:1.2rem;">Quizzes &amp; Assessments</div></div>
+    <div class="sec-head"><div class="sec-title" style="font-size:0.9rem;color:var(--muted);">Available</div></div>
+    <div class="quiz-grid" id="availableQuizGrid" style="margin-bottom:24px;"></div>
+    <div class="sec-head"><div class="sec-title" style="font-size:0.9rem;color:var(--muted);">Completed</div></div>
+    <div class="quiz-grid" id="completedQuizGrid"></div>
+  </div>
+
+  <!-- PROFILE PAGE -->
+  <div class="dpage" id="dpage-profile">
+    <div class="sec-head" style="margin-bottom:20px;"><div class="sec-title" style="font-size:1.2rem;">Profile &amp; Settings</div></div>
+    <div class="profile-layout">
+      <div class="profile-tabs" id="profileTabsEl">
+        <button class="ptab active" data-ppanel="profile-info">👤 Profile</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-ppanel="preferences">🎯 Preferences</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-ppanel="notifications">🔔 Notifications</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-ppanel="security">🔒 Security</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-ppanel="appearance">🎨 Appearance</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-ppanel="account-mgmt">⚙️ Account</button>
+      </div>
+      <div>
+        <!-- PROFILE INFO -->
+        <div class="profile-panel active" id="ppanel-profile-info">
+          <div class="panel-card">
+            <div class="panel-title">Profile</div>
+            <div class="panel-sub">Manage your personal information</div>
+            <div class="avatar-upload">
+              <div class="big-avatar" id="bigAvatar">JS</div>
+              <button class="change-photo-btn">Change Photo</button>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="pfFirst" type="text" placeholder="First name"/></div>
+              <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="pfLastName" type="text" placeholder="Last name" id="pfLast"/></div>
+            </div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="pfEmail" type="email" placeholder="your@email.com"/></div>
+            <div class="form-group"><label class="form-label">Username</label><input class="form-input" id="pfUsername" type="text" placeholder="@username"/></div>
+            <div class="form-group"><label class="form-label">Learning Goal</label><input class="form-input" placeholder="e.g. Build professional skills" id="pfGoal"/></div>
+            <button class="btn-save" id="saveProfileBtn">Save Changes</button>
+          </div>
+        </div>
+        <!-- PREFERENCES -->
+        <div class="profile-panel" id="ppanel-preferences">
+          <div class="panel-card">
+            <div class="panel-title">Learning Preferences</div>
+            <div class="panel-sub">Personalize your learning experience</div>
+            <div class="form-group">
+              <label class="form-label">Learning Goal</label>
+              <div class="pref-options" id="goalOpts">
+                <div class="pref-opt selected" data-val="skills">Learn new skills</div>
+                <div class="pref-opt" data-val="career">Prepare for a career</div>
+                <div class="pref-opt" data-val="business">Start a business</div>
+                <div class="pref-opt" data-val="improve">Improve existing skills</div>
+                <div class="pref-opt" data-val="personal">Personal development</div>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:20px;">
+              <label class="form-label">Preferred Category</label>
+              <div class="pref-options" id="catOpts">
+                <div class="pref-opt" data-val="business">Business</div>
+                <div class="pref-opt selected" data-val="tech">Technology</div>
+                <div class="pref-opt" data-val="marketing">Marketing</div>
+                <div class="pref-opt" data-val="finance">Finance</div>
+                <div class="pref-opt" data-val="design">Design</div>
+                <div class="pref-opt" data-val="personal">Personal Development</div>
+              </div>
+            </div>
+            <button class="btn-save" id="savePrefBtn" style="margin-top:20px;">Save Preferences</button>
+          </div>
+        </div>
+        <!-- NOTIFICATIONS -->
+        <div class="profile-panel" id="ppanel-notifications">
+          <div class="panel-card">
+            <div class="panel-title">Notifications</div>
+            <div class="panel-sub">Choose which notifications you receive</div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Course Reminders</div><div class="toggle-desc">Get reminded to continue your courses</div></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Quiz Reminders</div><div class="toggle-desc">Get reminded to take pending quizzes</div></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">New Courses</div><div class="toggle-desc">Be notified when new courses are added</div></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Learning Progress</div><div class="toggle-desc">Weekly progress summary</div></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Announcements</div><div class="toggle-desc">Platform updates and news</div></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+          </div>
+        
+            <button class="btn-save" id="saveNotifBtn" style="margin-top:16px;">Save Notification Settings</button></div>
+        <!-- SECURITY -->
+        <div class="profile-panel" id="ppanel-security">
+          <div class="panel-card">
+            <div class="panel-title">Account &amp; Security</div>
+            <div class="panel-sub">Manage your password and account security</div>
+            <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="Enter current password" id="curPass"/></div>
+            <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="Enter new password" id="newPass"/></div>
+            <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="Confirm new password" id="confPass"/></div>
+            <button class="btn-save" id="changePassBtn">Update Password</button>
+          </div>
+        </div>
+        <!-- APPEARANCE -->
+        <div class="profile-panel" id="ppanel-appearance">
+          <div class="panel-card">
+            <div class="panel-title">Appearance</div>
+            <div class="panel-sub">Choose your preferred display mode</div>
+            <div class="appear-grid">
+              <div class="appear-opt selected" data-theme="dark"><div class="appear-preview" style="background:linear-gradient(135deg,#0A0A0F,#161224);border:1px solid rgba(255,255,255,0.08);"></div><div class="appear-label">🌙 Dark</div></div>
+              <div class="appear-opt" data-theme="light"><div class="appear-preview" style="background:linear-gradient(135deg,#f5f5f5,#e8e8e8);border:1px solid rgba(0,0,0,0.1);"></div><div class="appear-label">☀️ Light</div></div>
+              <div class="appear-opt" data-theme="system"><div class="appear-preview" style="background:linear-gradient(135deg,#0A0A0F 50%,#f5f5f5 50%);border:1px solid rgba(255,255,255,0.08);"></div><div class="appear-label">💻 System</div></div>
+            </div>
+            <div style="margin-top:14px;font-size:0.75rem;color:var(--muted);"><span id="activeThemeLabel" style="font-weight:700;color:var(--g);">Dark Mode</span> is currently active. LearnPathFlow uses dark mode by default for the best learning experience.</div>
+          </div>
+        </div>
+        <!-- ACCOUNT MANAGEMENT -->
+        <div class="profile-panel" id="ppanel-account-mgmt">
+          <div class="panel-card">
+            <div class="panel-title">Account Management</div>
+            <div class="panel-sub">Manage your account access</div>
+            <div style="margin-bottom:20px;">
+              <div style="font-weight:600;font-size:0.88rem;margin-bottom:6px;">Log Out</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-bottom:12px;">You will be signed out of your account on this device.</div>
+              <button class="btn-outline-w" id="logoutBtn2">Log Out</button>
+            </div>
+            <div class="dsb-divider" style="margin:20px 0;"></div>
+            <div>
+              <div style="font-weight:600;font-size:0.88rem;margin-bottom:6px;color:#E57373;">Delete Account</div>
+              <div style="font-size:0.78rem;color:var(--muted);margin-bottom:12px;">Permanently delete your account and all your learning data. This action cannot be undone.</div>
+              <button class="btn-danger" id="deleteAccBtn">Delete Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS PAGE (redirects to profile) -->
+  <div class="dpage" id="dpage-settings">
+    <div class="sec-head" style="margin-bottom:20px;"><div class="sec-title" style="font-size:1.2rem;">Settings</div></div>
+    <div class="profile-layout">
+      <div class="profile-tabs" id="profileTabsEl">
+        <button class="ptab active" data-spanel="s-security">🔒 Security</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-spanel="s-notifs">🔔 Notifications</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-spanel="s-appear">🎨 Appearance</button>
+        <div class="ptab-divider"></div>
+        <button class="ptab" data-spanel="s-account">⚙️ Account</button>
+      </div>
+      <div>
+        <div class="profile-panel active" id="spanel-s-security">
+          <div class="panel-card">
+            <div class="panel-title">Account &amp; Security</div>
+            <div class="panel-sub">Manage your password and account security</div>
+            <div class="form-group"><label class="form-label">Current Password</label><input class="form-input" type="password" placeholder="Enter current password" id="sCurPass"/></div>
+            <div class="form-group"><label class="form-label">New Password</label><input class="form-input" type="password" placeholder="Enter new password" id="sNewPass"/></div>
+            <div class="form-group"><label class="form-label">Confirm New Password</label><input class="form-input" type="password" placeholder="Confirm new password" id="sConfPass"/></div>
+            <button class="btn-save" id="sChangePassBtn">Update Password</button>
+          </div>
+        </div>
+        <div class="profile-panel" id="spanel-s-notifs">
+          <div class="panel-card">
+            <div class="panel-title">Notifications</div>
+            <div class="panel-sub">Choose which notifications you receive</div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Course Reminders</div><div class="toggle-desc">Get reminded to continue your courses</div></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Quiz Reminders</div><div class="toggle-desc">Be reminded to take pending quizzes</div></div><label class="toggle"><input type="checkbox" checked/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">New Courses</div><div class="toggle-desc">Be notified when new courses are added</div></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+            <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">Announcements</div><div class="toggle-desc">Platform updates and news</div></div><label class="toggle"><input type="checkbox"/><span class="toggle-slider"></span></label></div>
+          
+            <button class="btn-save" id="sSaveNotifBtn" style="margin-top:16px;">Save Notification Settings</button></div>
+        </div>
+        <div class="profile-panel" id="spanel-s-appear">
+          <div class="panel-card">
+            <div class="panel-title">Appearance</div>
+            <div class="panel-sub">Choose your preferred display mode</div>
+            <div class="appear-grid">
+              <div class="appear-opt selected" data-theme2="dark"><div class="appear-preview" style="background:linear-gradient(135deg,#0A0A0F,#161224);border:1px solid rgba(255,255,255,0.08);"></div><div class="appear-label">🌙 Dark</div></div>
+              <div class="appear-opt" data-theme2="light"><div class="appear-preview" style="background:linear-gradient(135deg,#f5f5f5,#e8e8e8);border:1px solid rgba(0,0,0,0.1);"></div><div class="appear-label">☀️ Light</div></div>
+              <div class="appear-opt" data-theme2="system"><div class="appear-preview" style="background:linear-gradient(135deg,#0A0A0F 50%,#f5f5f5 50%);"></div><div class="appear-label">💻 System</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="profile-panel" id="spanel-s-account">
+          <div class="panel-card">
+            <div class="panel-title">Account Management</div>
+            <div class="panel-sub">Manage your account access</div>
+            <div style="margin-bottom:20px;"><div style="font-weight:600;font-size:0.88rem;margin-bottom:8px;">Log Out</div><button class="btn-outline-w" id="logoutBtn3">Log Out</button></div>
+            <div class="dsb-divider" style="margin:20px 0;"></div>
+            <div><div style="font-weight:600;font-size:0.88rem;margin-bottom:8px;color:#E57373;">Delete Account</div><button class="btn-danger" id="deleteAccBtn2">Delete Account</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav">
+  <div class="mnav-items">
+    <button class="mnav-item active" data-dpage="dashboard"><div class="mnav-icon">🏠</div>Home</button>
+    <button class="mnav-item" data-dpage="mycourses"><div class="mnav-icon">📚</div>Courses</button>
+    <button class="mnav-item" data-dpage="progress"><div class="mnav-icon">📊</div>Progress</button>
+    <button class="mnav-item" data-dpage="quizzes"><div class="mnav-icon">🧠</div>Quizzes</button>
+    <button class="mnav-item" data-dpage="profile"><div class="mnav-icon">👤</div>Profile</button>
+  </div>
+</nav>
+
+<div id="cv" style="display:none;position:fixed;inset:0;background:#0A0A0F;z-index:5000;overflow-y:auto;padding-top:68px;">
+  <div class="cvnav">
+    <button class="cvback" id="cvBack">← Back</button>
+    <div id="cvTitle" style="font-family:Bebas Neue,sans-serif;font-size:1rem;letter-spacing:0.06em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px;"></div>
+    <div id="cvProg" style="font-size:0.72rem;color:rgba(255,255,255,0.5);flex-shrink:0;">Lesson 1 of 4</div>
+  </div>
+  <div class="cvbody">
+    <div id="lessonContent"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.07);">
+      <button id="cvPrev" class="cvprev">← Previous</button>
+      <div id="cvDots" class="cvdots"></div>
+      <button id="cvNext" class="cvnext">Next Lesson →</button>
+    </div>
+  </div>
+</div>
+<script>
+function _on(id, evt, fn) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener(evt, fn);
+}
+function _qs(sel, fn) {
+  document.querySelectorAll(sel).forEach(fn);
+}
+
+// ═══════════════════════════════════════════
+// SUPABASE BACKEND — LearnPathFlow
+// ═══════════════════════════════════════════
+var SUPA_URL = "https://gegouyswynfrwotxgfwr.supabase.co";
+var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdlZ291eXN3eW5mcndvdHhnZndyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgzODMxOTAsImV4cCI6MjEwMzk1OTE5MH0.JdBg-YvrJMc8tuYsSq2DFQtdN7MVw5-u9bK14UVRyA8";
+var currentUser = null;
+var currentSession = null;
+
+function sbFetch(path, opts) {
+  var url = SUPA_URL + "/rest/v1" + path;
+  var headers = { "apikey": SUPA_KEY, "Content-Type": "application/json", "Prefer": "return=representation" };
+  if (currentSession) headers["Authorization"] = "Bearer " + currentSession;
+  var options = { method: opts.method || "GET", headers: Object.assign(headers, opts.headers || {}) };
+  if (opts.body) options.body = JSON.stringify(opts.body);
+  return fetch(url, options).then(function(r) { return r.json(); });
+}
+
+function authFetch(path, body) {
+  return fetch(SUPA_URL + "/auth/v1" + path, {
+    method: "POST",
+    headers: { "apikey": SUPA_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  }).then(function(r) { return r.json(); });
+}
+
+function supaSignup(first, last, email, password) {
+  return authFetch("/signup", { email: email, password: password, data: { first_name: first, last_name: last } })
+    .then(function(data) {
+      if (data.error) throw new Error(data.error.message || "Signup failed");
+      if (data.access_token) {
+        currentSession = data.access_token;
+        currentUser = { id: data.user.id, email: email, first: first, last: last };
+        saveSession(data.access_token, data.refresh_token);
+      }
+      return data;
+    });
+}
+
+function supaLogin(email, password) {
+  return authFetch("/token?grant_type=password", { email: email, password: password })
+    .then(function(data) {
+      if (data.error || data.error_description) throw new Error(data.error_description || "Login failed");
+      currentSession = data.access_token;
+      saveSession(data.access_token, data.refresh_token);
+      return loadUserProfile(data.user.id, email).then(function(profile) {
+        currentUser = { id: data.user.id, email: email, first: profile.first_name || email.split("@")[0], last: profile.last_name || "" };
+        return data;
+      });
+    });
+}
+
+function supaLogout() {
+  fetch(SUPA_URL + "/auth/v1/logout", { method: "POST", headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + (currentSession || "") } });
+  currentSession = null; currentUser = null; clearSession();
+}
+
+function supaGoogleSignIn() {
+  var redirectTo = window.location.href.split("?")[0].split("#")[0];
+  window.location.href = SUPA_URL + "/auth/v1/authorize?provider=google&redirect_to=" + encodeURIComponent(redirectTo);
+}
+
+function handleOAuthCallback() {
+  var hash = window.location.hash;
+  if (!hash || hash.indexOf("access_token") === -1) return false;
+  var params = {};
+  hash.substring(1).split("&").forEach(function(part) {
+    var eq = part.indexOf("=");
+    if (eq > -1) params[decodeURIComponent(part.substring(0, eq))] = decodeURIComponent(part.substring(eq + 1));
+  });
+  if (!params.access_token) return false;
+  currentSession = params.access_token;
+  saveSession(params.access_token, params.refresh_token || "");
+  history.replaceState(null, "", window.location.pathname);
+  fetch(SUPA_URL + "/auth/v1/user", { headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + params.access_token } })
+    .then(function(r) { return r.json(); }).then(function(data) {
+      if (data && data.id) {
+        var meta = data.user_metadata || {};
+        var fn = meta.full_name ? meta.full_name.split(" ")[0] : (meta.name ? meta.name.split(" ")[0] : data.email.split("@")[0]);
+        var ln = meta.full_name ? meta.full_name.split(" ").slice(1).join(" ") : "";
+        currentUser = { id: data.id, email: data.email, first: fn, last: ln };
+        fetch(SUPA_URL + "/rest/v1/profiles", {
+          method: "POST",
+          headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + params.access_token, "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates,return=minimal" },
+          body: JSON.stringify({ id: data.id, first_name: fn, last_name: ln, email: data.email })
+        }).then(function() { enterDashboardReal(); });
+      }
+    }).catch(function() { toast("Google sign-in failed. Please try again."); });
+  return true;
+}
+
+function saveSession(token, refresh) {
+  try { sessionStorage.setItem("lpf_token", token); sessionStorage.setItem("lpf_refresh", refresh || ""); } catch(e) {}
+}
+function clearSession() {
+  try { sessionStorage.removeItem("lpf_token"); sessionStorage.removeItem("lpf_refresh"); } catch(e) {}
+}
+
+function tryRestoreSession() {
+  var token;
+  try { token = sessionStorage.getItem("lpf_token"); } catch(e) { return Promise.resolve(false); }
+  if (!token) return Promise.resolve(false);
+  return fetch(SUPA_URL + "/auth/v1/user", { headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + token } })
+    .then(function(r) { return r.json(); }).then(function(data) {
+      if (data && data.id) {
+        currentSession = token;
+        return loadUserProfile(data.id, data.email).then(function(profile) {
+          currentUser = { id: data.id, email: data.email, first: profile.first_name || data.email.split("@")[0], last: profile.last_name || "" };
+          return true;
+        });
+      }
+      return false;
+    }).catch(function() { return false; });
+}
+
+function loadUserProfile(userId, email) {
+  return sbFetch("/profiles?id=eq." + userId + "&select=*", {})
+    .then(function(data) {
+      if (data && data.length > 0) return data[0];
+      return { first_name: email ? email.split("@")[0] : "", last_name: "", email: email || "" };
+    }).catch(function() { return { first_name: email ? email.split("@")[0] : "", last_name: "", email: email || "" }; });
+}
+
+function saveProfile(first, last, username, goal) {
+  if (!currentUser) return Promise.reject("Not logged in");
+  return sbFetch("/profiles?id=eq." + currentUser.id, {
+    method: "PATCH",
+    body: { first_name: first, last_name: last, username: username, learning_goal: goal }
+  }).then(function() {
+    currentUser.first = first; currentUser.last = last;
+    updateAvatars();
+    toast("Profile saved!");
+  });
+}
+
+function loadCourses() {
+  return sbFetch("/courses?select=*&order=sort_order", {}).then(function(data) {
+    if (data && data.length) {
+      COURSES = data.map(function(c) {
+        return { id: c.id, title: c.title, cat: c.category, desc: c.description, icon: c.icon, bg: c.bg, total: c.total_lessons, progress: 0, done: 0, status: "notstarted" };
+      });
+    }
+    return COURSES;
+  }).catch(function() { return COURSES; });
+}
+
+function loadUserProgress() {
+  if (!currentUser || currentUser.id === "preview") return Promise.resolve();
+  return sbFetch("/lesson_progress?user_id=eq." + currentUser.id + "&select=course_id,lesson_number", {})
+    .then(function(data) {
+      if (!data || !data.length) return;
+      var map = {};
+      data.forEach(function(row) {
+        if (!map[row.course_id]) map[row.course_id] = [];
+        map[row.course_id].push(row.lesson_number);
+      });
+      COURSES.forEach(function(c) {
+        var done = map[c.id] ? map[c.id].length : 0;
+        c.done = done; c.progress = Math.round((done / c.total) * 100);
+        c.status = done === 0 ? "notstarted" : done >= c.total ? "completed" : "inprog";
+      });
+    }).catch(function() {});
+}
+
+function loadQuizResults() {
+  if (!currentUser || currentUser.id === "preview") return Promise.resolve();
+  return sbFetch("/quiz_results?user_id=eq." + currentUser.id + "&select=quiz_id,score,correct_answers,total_questions", {})
+    .then(function(data) {
+      if (!data || !data.length) return;
+      data.forEach(function(row) {
+        var qz = QUIZZES.find(function(q) { return q.id === row.quiz_id; });
+        if (qz) { qz.status = "completed"; qz.score = row.score; qz.correct = row.correct_answers; qz.total = row.total_questions; }
+      });
+    }).catch(function() {});
+}
+
+function saveLessonProgress(courseId, lessonNumber) {
+  if (!currentUser || currentUser.id === "preview") return Promise.resolve();
+  return sbFetch("/lesson_progress", {
+    method: "POST",
+    headers: { "Prefer": "resolution=ignore-duplicates,return=minimal" },
+    body: { user_id: currentUser.id, course_id: courseId, lesson_number: lessonNumber }
+  }).then(function() {
+    var course = COURSES.find(function(c) { return c.id === courseId; });
+    if (course && lessonNumber > course.done) {
+      course.done = lessonNumber;
+      course.progress = Math.round((course.done / course.total) * 100);
+      course.status = course.done >= course.total ? "completed" : "inprog";
+    }
+    refreshDashboardStats();
+  }).catch(function() {});
+}
+
+function saveQuizResult(quizId, score, correct, total) {
+  if (!currentUser || currentUser.id === "preview") return Promise.resolve();
+  return sbFetch("/quiz_results", {
+    method: "POST",
+    headers: { "Prefer": "resolution=merge-duplicates,return=minimal" },
+    body: { user_id: currentUser.id, quiz_id: quizId, score: score, correct_answers: correct, total_questions: total }
+  }).then(function() {
+    var qz = QUIZZES.find(function(q) { return q.id === quizId; });
+    if (qz) { qz.status = "completed"; qz.score = score; qz.correct = correct; qz.total = total; }
+    renderAll();
+  }).catch(function() {});
+}
+
+function updateAvatars() {
+  if (!currentUser) return;
+  var ini = ((currentUser.first || "U").charAt(0) + (currentUser.last ? currentUser.last.charAt(0) : "")).toUpperCase();
+  ["davatarBtn","wbAvatar","bigAvatar"].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = ini; });
+  var wn = document.getElementById("wbName"); if (wn) wn.textContent = currentUser.first || "Learner";
+  var pf = document.getElementById("pfFirst"); if (pf) pf.value = currentUser.first || "";
+  var pl = document.getElementById("pfLast"); if (pl) pl.value = currentUser.last || "";
+  var pe = document.getElementById("pfEmail"); if (pe) pe.value = currentUser.email || "";
+  var pu = document.getElementById("pfUsername"); if (pu && !pu.value) pu.value = "@" + (currentUser.first || "user").toLowerCase();
+}
+
+function refreshDashboardStats() {
+  var completed = COURSES.filter(function(c) { return c.status === "completed"; }).length;
+  var totalDone = COURSES.reduce(function(s, c) { return s + c.done; }, 0);
+  var totalLessons = COURSES.reduce(function(s, c) { return s + c.total; }, 0);
+  var pct = totalLessons > 0 ? Math.round((totalDone / totalLessons) * 100) : 0;
+  var cards = document.querySelectorAll(".stat-card .sc-num");
+  if (cards.length >= 4) { cards[0].textContent = COURSES.length; cards[1].textContent = completed; cards[2].textContent = totalDone; cards[3].textContent = pct + "%"; }
+  var progCards = document.querySelectorAll("#dpage-progress .stat-card .sc-num");
+  if (progCards.length >= 4) { progCards[0].textContent = COURSES.length; progCards[1].textContent = completed; progCards[2].textContent = totalDone; progCards[3].textContent = Math.round(totalDone * 0.57) + "h"; }
+  var pf = document.querySelector("#dpage-progress .prog-bar-fill"); if (pf) pf.style.width = pct + "%";
+  var pp = document.querySelector("#dpage-progress .prog-pct-row strong"); if (pp) pp.textContent = pct + "%";
+  var ps = document.querySelector("#dpage-progress .prog-sub"); if (ps) ps.textContent = "You have completed " + pct + "% of your current learning goals.";
+  var inProg = COURSES.filter(function(c) { return c.status === "inprog"; });
+  var notStarted = COURSES.filter(function(c) { return c.status === "notstarted"; });
+  var target = inProg.length > 0 ? inProg[0] : (notStarted.length > 0 ? notStarted[0] : null);
+  if (target) {
+    var ct = document.querySelector(".continue-card .cc-title"); if (ct) ct.textContent = target.title;
+    var cg = document.querySelector(".continue-card .cc-tag"); if (cg) cg.textContent = target.cat;
+    var cl = document.querySelector(".continue-card .cc-lesson"); if (cl) cl.textContent = "Lesson " + (target.done + 1) + " of " + target.total;
+    var cp = document.querySelector(".continue-card .cc-pct"); if (cp) cp.textContent = target.progress + "%";
+    var cf = document.querySelector(".continue-card .pbar-fill"); if (cf) cf.style.width = target.progress + "%";
+    var cm = document.querySelector(".continue-card .cc-meta"); if (cm) cm.textContent = target.done + " of " + target.total + " lessons completed";
+    var cb = document.getElementById("dashContinueBtn"); if (cb) cb.onclick = function() { openCourse(target.id); };
+  }
+}
+
+function showLoading(msg) {
+  var el = document.getElementById("loadingOverlay");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "loadingOverlay";
+    el.style.cssText = "position:fixed;inset:0;background:rgba(10,10,15,0.93);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;";
+    el.innerHTML = "<div style=\"width:44px;height:44px;border:3px solid rgba(200,168,75,0.2);border-top-color:#C8A84B;border-radius:50%;animation:spin 0.8s linear infinite;\"></div><div style=\"color:rgba(255,255,255,0.7);font-size:0.85rem;\">" + (msg || "Loading...") + "</div>";
+    document.body.appendChild(el);
+  } else { el.style.display = "flex"; }
+}
+function hideLoading() { var el = document.getElementById("loadingOverlay"); if (el) el.style.display = "none"; }
+
+function enterDashboardReal() {
+  showLoading("Loading your dashboard...");
+  COURSES.forEach(function(c) { c.done = 0; c.progress = 0; c.status = "notstarted"; });
+  QUIZZES.forEach(function(q) { q.status = "available"; delete q.score; delete q.correct; });
+  loadCourses().then(function() {
+    return loadUserProgress();
+  }).then(function() {
+    return loadQuizResults();
+  }).then(function() {
+    hideLoading();
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("dashboard-app").style.display = "block";
+    document.getElementById("mobileNav").style.display = "block";
+    updateAvatars();
+    window.scrollTo(0, 0);
+    renderAll();
+    refreshDashboardStats();
+    toast("Welcome, " + (currentUser.first || "Learner") + "!");
+  }).catch(function() { hideLoading(); toast("Error loading. Please try again."); });
+}
+
+
+// ── STUDENT DATA ──
+var student = { first:"", last:"", email:"" };
+function getInitials() { return ((student.first||"U").charAt(0) + (student.last ? student.last.charAt(0) : "")).toUpperCase(); }
+
+var COURSES = [
+  {id:"business",title:"Launch Your First Business in 30 Days",cat:"Business",desc:"From idea to launch — validate, plan, and start your business.",icon:"💼",bg:"linear-gradient(135deg,#1e3a5f,#0a1a2e)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"finance",title:"Personal Finance 101: Control Your Money",cat:"Finance",desc:"Budgeting, saving, investing basics, and building real wealth.",icon:"💰",bg:"linear-gradient(135deg,#1a3a1a,#0a1a0a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"development",title:"High Performance Habits and Productivity",cat:"Productivity",desc:"Build systems and habits used by top performers.",icon:"🌱",bg:"linear-gradient(135deg,#2a1a3a,#100a1a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"writing",title:"Content Writing and Copywriting",cat:"Writing",desc:"Write content that grabs attention, builds trust, and drives action.",icon:"📝",bg:"linear-gradient(135deg,#2a1a5e,#1a0a3e)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"speaking",title:"Public Speaking and Communication",cat:"Communication",desc:"Speak with clarity and confidence in any situation.",icon:"🗣️",bg:"linear-gradient(135deg,#1a3a5e,#0a1a3e)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"goals",title:"Goal Setting and Life Planning",cat:"Productivity",desc:"The proven system for setting and achieving goals.",icon:"🎯",bg:"linear-gradient(135deg,#4a2a1a,#2a100a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"networking",title:"Networking and Relationship Building",cat:"Business",desc:"Build genuine connections that open doors to opportunities.",icon:"🤝",bg:"linear-gradient(135deg,#3a1a4a,#1a0a2a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"time",title:"Time Management Mastery",cat:"Productivity",desc:"Stop being busy and start being productive.",icon:"⏰",bg:"linear-gradient(135deg,#4a3a1a,#2a1a0a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"thinking",title:"Critical Thinking and Problem Solving",cat:"Skills",desc:"Think clearly and make better decisions every day.",icon:"🧠",bg:"linear-gradient(135deg,#2a3a1a,#101a0a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"socialmedia",title:"Social Media for Beginners",cat:"Marketing",desc:"Grow a personal brand or business on social media.",icon:"📱",bg:"linear-gradient(135deg,#1a2a4a,#0a102a)",progress:0,done:0,total:4,status:"notstarted"},
+  {id:"internet",title:"How the Internet Works for Beginners",cat:"Technology",desc:"Understand the internet in plain English.",icon:"🌐",bg:"linear-gradient(135deg,#1a3a4a,#0a1a2a)",progress:0,done:0,total:4,status:"notstarted"}
+];
+
+var QUIZZES = [
+  {id:"q_business",title:"Business Fundamentals Quiz",course:"Launch Your First Business",courseId:"business",questions:4,status:"available"},
+  {id:"q_finance",title:"Personal Finance Quiz",course:"Personal Finance 101",courseId:"finance",questions:4,status:"available"},
+  {id:"q_development",title:"High Performance Habits Quiz",course:"High Performance Habits",courseId:"development",questions:4,status:"available"},
+  {id:"q_writing",title:"Content Writing Quiz",course:"Content Writing and Copywriting",courseId:"writing",questions:4,status:"available"},
+  {id:"q_speaking",title:"Public Speaking Quiz",course:"Public Speaking and Communication",courseId:"speaking",questions:4,status:"available"},
+  {id:"q_goals",title:"Goal Setting Quiz",course:"Goal Setting and Life Planning",courseId:"goals",questions:4,status:"available"},
+  {id:"q_networking",title:"Networking Quiz",course:"Networking and Relationship Building",courseId:"networking",questions:4,status:"available"},
+  {id:"q_time",title:"Time Management Quiz",course:"Time Management Mastery",courseId:"time",questions:4,status:"available"},
+  {id:"q_thinking",title:"Critical Thinking Quiz",course:"Critical Thinking and Problem Solving",courseId:"thinking",questions:4,status:"available"},
+  {id:"q_socialmedia",title:"Social Media Quiz",course:"Social Media for Beginners",courseId:"socialmedia",questions:4,status:"available"},
+  {id:"q_internet",title:"Internet Basics Quiz",course:"How the Internet Works",courseId:"internet",questions:4,status:"available"}
+];
+
+// ── TOAST ──
+function toast(msg) {
+  var t = document.getElementById("toast");
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(function() { t.classList.remove("show"); }, 3000);
+}
+
+// ── LANDING NAV ──
+document.querySelectorAll("[data-lscroll]").forEach(function(a) {
+  a.addEventListener("click", function(e) {
+    e.preventDefault();
+    var el = document.getElementById(a.getAttribute("data-lscroll"));
+    if (el) el.scrollIntoView({ behavior:"smooth" });
+  });
+});
+
+var landMenuOpen = false;
+_on("landMenuBtn","click", function() {
+  var ex = document.getElementById("landMobileMenu");
+  if (ex) { ex.remove(); return; }
+  var m = document.createElement("div");
+  m.id = "landMobileMenu";
+  m.style.cssText = "position:fixed;top:66px;left:0;right:0;background:rgba(10,10,15,0.99);border-bottom:1px solid rgba(200,168,75,0.2);z-index:999;padding:14px 5%;";
+  [["Features","land-features"],["How It Works","land-how"],["Courses","land-courses"]].forEach(function(l) {
+    var a = document.createElement("a");
+    a.textContent = l[0]; a.href = "#";
+    a.style.cssText = "color:rgba(255,255,255,0.8);text-decoration:none;font-size:1rem;font-weight:500;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:block;";
+    a.addEventListener("click", function(e) { e.preventDefault(); m.remove(); var el = document.getElementById(l[1]); if (el) el.scrollIntoView({behavior:"smooth"}); });
+    m.appendChild(a);
+  });
+  var sb = document.createElement("button");
+  sb.className = "lnbtn lnbtn-gold"; sb.style.cssText = "width:100%;margin-top:12px;padding:12px;";
+  sb.textContent = "Start Free";
+  sb.addEventListener("click", function() { m.remove(); openLandModal("signup"); });
+  m.appendChild(sb);
+  document.body.appendChild(m);
+});
+
+// ── LANDING MODALS ──
+function openLandModal(type) {
+  document.getElementById(type + "Modal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLandModal(type) {
+  document.getElementById(type + "Modal").classList.remove("open");
+  document.body.style.overflow = "auto";
+}
+
+["landLoginBtn","landSignupBtn","landHeroSignup","landSeeAllBtn"].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  if (id === "landLoginBtn") el.addEventListener("click", function() { openLandModal("login"); });
+  else el.addEventListener("click", function() { openLandModal("signup"); });
+});
+["landCourseBtn1","landCourseBtn2","landCourseBtn3","landCourseBtn4","landCourseBtn5","landCourseBtn6"].forEach(function(id) {
+  var el = document.getElementById(id); if (el) el.addEventListener("click", function() { openLandModal("signup"); });
+});
+var hv = document.getElementById("landHeroView");
+if (hv) hv.addEventListener("click", function() { var el = document.getElementById("land-courses"); if (el) el.scrollIntoView({behavior:"smooth"}); });
+
+_on("closeLoginBtn","click", function() { closeLandModal("login"); });
+_on("closeSignupBtn","click", function() { closeLandModal("signup"); });
+_on("toSignupLink","click", function() { closeLandModal("login"); openLandModal("signup"); });
+_on("toLoginLink","click", function() { closeLandModal("signup"); openLandModal("login"); });
+document.querySelectorAll(".modal-overlay").forEach(function(o) {
+  o.addEventListener("click", function(e) { if (e.target === o) { o.classList.remove("open"); document.body.style.overflow = "auto"; } });
+});
+
+// ── GOOGLE BUTTONS ──
+_on("googleLoginBtn","click", supaGoogleSignIn);
+_on("googleSignupBtn","click", supaGoogleSignIn);
+
+// ── EMAIL LOGIN ──
+_on("doLoginBtn","click", function() {
+  var email = document.getElementById("loginEmail").value.trim();
+  var pass = document.getElementById("loginPass").value;
+  if (!email || !pass) { toast("Please fill in all fields"); return; }
+  var btn = this; btn.textContent = "Signing in..."; btn.disabled = true;
+  supaLogin(email, pass).then(function() {
+    closeLandModal("login");
+    enterDashboardReal();
+  }).catch(function(err) {
+    toast(err.message || "Login failed. Check your email and password.");
+    btn.textContent = "Log In"; btn.disabled = false;
+  });
+});
+
+// ── EMAIL SIGNUP ──
+_on("doSignupBtn","click", function() {
+  var first = document.getElementById("signupFirst").value.trim();
+  var last = document.getElementById("signupLast").value.trim();
+  var email = document.getElementById("signupEmail").value.trim();
+  var pass = document.getElementById("signupPass").value;
+  if (!first || !email || !pass) { toast("Please fill in all required fields"); return; }
+  if (pass.length < 6) { toast("Password must be at least 6 characters"); return; }
+  var btn = this; btn.textContent = "Creating account..."; btn.disabled = true;
+  supaSignup(first, last, email, pass).then(function() {
+    closeLandModal("signup");
+    enterDashboardReal();
+  }).catch(function(err) {
+    toast(err.message || "Signup failed. Try a different email.");
+    btn.textContent = "Create Free Account"; btn.disabled = false;
+  });
+});
+
+// ── PREVIEW ──
+
+
+// ── CONFIRM MODAL ──
+var confirmCb = null;
+function openConfirm(title, sub, cb) {
+  document.getElementById("confirmTitle").textContent = title;
+  document.getElementById("confirmSub").textContent = sub;
+  confirmCb = cb;
+  document.getElementById("confirmModal").classList.add("open");
+}
+_on("confirmCancel","click", function() { document.getElementById("confirmModal").classList.remove("open"); });
+_on("confirmOk","click", function() { document.getElementById("confirmModal").classList.remove("open"); if (confirmCb) confirmCb(); });
+
+// ── LOGOUT ──
+function doLogout() {
+  supaLogout();
+  document.getElementById("dashboard-app").style.display = "none";
+  document.getElementById("mobileNav").style.display = "none";
+  document.getElementById("landing").style.display = "block";
+  window.scrollTo(0, 0);
+  toast("Logged out successfully. See you soon!");
+}
+
+// ── DASHBOARD NAV ──
+function goPage(id) {
+  document.querySelectorAll(".dpage").forEach(function(p) { p.classList.remove("active"); });
+  var el = document.getElementById("dpage-" + id);
+  if (el) el.classList.add("active");
+  var titles = {dashboard:"Dashboard",mycourses:"My Courses",progress:"Progress",quizzes:"Quizzes",profile:"Profile",settings:"Settings"};
+  document.getElementById("dheaderTitle").textContent = titles[id] || "Dashboard";
+  document.querySelectorAll(".dsb-item[data-dpage]").forEach(function(b) { b.classList.toggle("active", b.getAttribute("data-dpage") === id); });
+  document.querySelectorAll(".mnav-item[data-dpage]").forEach(function(b) { b.classList.toggle("active", b.getAttribute("data-dpage") === id); });
+  window.scrollTo(0, 0); closeSidebar(); closeDropdown();
+}
+document.querySelectorAll("[data-dpage]").forEach(function(el) {
+  el.addEventListener("click", function() { goPage(el.getAttribute("data-dpage")); });
+});
+
+function openSidebar() { document.getElementById("dsidebar").classList.add("open"); document.getElementById("sidebarOverlay").classList.add("open"); }
+function closeSidebar() { document.getElementById("dsidebar").classList.remove("open"); document.getElementById("sidebarOverlay").classList.remove("open"); }
+_on("dmenuBtn","click", openSidebar);
+_on("sidebarOverlay","click", closeSidebar);
+
+function closeDropdown() { document.getElementById("ddropdown").classList.remove("open"); }
+_on("davatarBtn","click", function(e) { e.stopPropagation(); document.getElementById("ddropdown").classList.toggle("open"); });
+document.addEventListener("click", closeDropdown);
+
+// Logout buttons
+["sbLogout","ddLogout","profileLogoutBtn","sLogoutBtn"].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener("click", function() { openConfirm("Log Out","Are you sure you want to log out?", doLogout); });
+});
+["deleteAccBtn","sDeleteBtn"].forEach(function(id) {
+  var el = document.getElementById(id);
+  if (el) el.addEventListener("click", function() {
+    openConfirm("Delete Account?","This will permanently delete your account and all your data. This cannot be undone.", function() {
+      toast("Account deleted."); setTimeout(doLogout, 1500);
+    });
+  });
+});
+
+// ── PROFILE TABS ──
+document.querySelectorAll(".ptab[data-ppanel]").forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    document.querySelectorAll(".ptab[data-ppanel]").forEach(function(t) { t.classList.remove("active"); });
+    tab.classList.add("active");
+    document.querySelectorAll("#profilePanelsEl .profile-panel").forEach(function(p) { p.classList.remove("active"); });
+    var panel = document.getElementById("ppanel-" + tab.getAttribute("data-ppanel"));
+    if (panel) panel.classList.add("active");
+  });
+});
+document.querySelectorAll(".ptab[data-spanel]").forEach(function(tab) {
+  tab.addEventListener("click", function() {
+    var parent = tab.closest(".profile-layout");
+    parent.querySelectorAll(".ptab[data-spanel]").forEach(function(t) { t.classList.remove("active"); });
+    tab.classList.add("active");
+    parent.querySelectorAll(".profile-panel").forEach(function(p) { p.classList.remove("active"); });
+    var panel = document.getElementById("spanel-" + tab.getAttribute("data-spanel"));
+    if (panel) panel.classList.add("active");
+  });
+});
+
+// ── PROFILE SAVE ──
+_on("saveProfileBtn","click", function() {
+  var first = document.getElementById("pfFirst").value.trim();
+  var last = document.getElementById("pfLast").value.trim();
+  var username = document.getElementById("pfUsername") ? document.getElementById("pfUsername").value.trim() : "";
+  var goal = document.getElementById("pfGoal") ? document.getElementById("pfGoal").value.trim() : "";
+  if (!first) { toast("First name is required"); return; }
+  var btn = this; btn.textContent = "Saving..."; btn.disabled = true;
+  saveProfile(first, last, username, goal).then(function() {
+    btn.textContent = "Save Changes"; btn.disabled = false;
+  }).catch(function() {
+    toast("Could not save. Please try again.");
+    btn.textContent = "Save Changes"; btn.disabled = false;
+  });
+});
+
+// ── PREFERENCES ──
+document.querySelectorAll("#goalOpts .pref-opt").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll("#goalOpts .pref-opt").forEach(function(b) { b.classList.remove("selected"); });
+    btn.classList.add("selected");
+  });
+});
+document.querySelectorAll("#catOpts .pref-opt").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll("#catOpts .pref-opt").forEach(function(b) { b.classList.remove("selected"); });
+    btn.classList.add("selected");
+  });
+});
+_on("savePrefBtn","click", function() {
+  var g = document.querySelector("#goalOpts .pref-opt.selected");
+  var ca = document.querySelector("#catOpts .pref-opt.selected");
+  toast("Preferences saved! Goal: " + (g ? g.textContent : "none"));
+});
+
+// ── NOTIFICATIONS ──
+_on("saveNotifBtn","click", function() { toast("Notification settings saved!"); });
+if (document.getElementById("sSaveNotifBtn")) _on("sSaveNotifBtn","click", function() { toast("Notification settings saved!"); });
+
+// ── PASSWORD ──
+function handlePassChange(curId, newId, confId) {
+  var cur = document.getElementById(curId).value;
+  var np = document.getElementById(newId).value;
+  var cp = document.getElementById(confId).value;
+  if (!cur || !np || !cp) { toast("Please fill in all password fields"); return; }
+  if (np.length < 6) { toast("New password must be at least 6 characters"); return; }
+  if (np !== cp) { toast("Passwords do not match"); return; }
+  document.getElementById(curId).value = "";
+  document.getElementById(newId).value = "";
+  document.getElementById(confId).value = "";
+  toast("Password updated successfully!");
+}
+_on("changePassBtn","click", function() { handlePassChange("curPass","newPass","confPass"); });
+if (document.getElementById("sChangePassBtn")) _on("sChangePassBtn","click", function() { handlePassChange("sCurPass","sNewPass","sConfPass"); });
+
+// ── APPEARANCE ──
+function applyTheme(theme) {
+  if (theme === "light") document.body.classList.add("light-mode");
+  else if (theme === "dark") document.body.classList.remove("light-mode");
+  else { if (window.matchMedia && window.matchMedia("(prefers-color-scheme:light)").matches) document.body.classList.add("light-mode"); else document.body.classList.remove("light-mode"); }
+  var lbl = document.getElementById("activeThemeLabel");
+  if (lbl) lbl.textContent = theme.charAt(0).toUpperCase() + theme.slice(1) + " Mode";
+  toast("Theme changed to " + theme);
+}
+document.querySelectorAll(".appear-opt[data-theme]").forEach(function(opt) {
+  opt.addEventListener("click", function() {
+    document.querySelectorAll(".appear-opt[data-theme]").forEach(function(o) { o.classList.remove("selected"); });
+    opt.classList.add("selected");
+    document.querySelectorAll(".appear-opt[data-stheme]").forEach(function(o) { o.classList.toggle("selected", o.getAttribute("data-stheme") === opt.getAttribute("data-theme")); });
+    applyTheme(opt.getAttribute("data-theme"));
+  });
+});
+document.querySelectorAll(".appear-opt[data-stheme]").forEach(function(opt) {
+  opt.addEventListener("click", function() {
+    document.querySelectorAll(".appear-opt[data-stheme]").forEach(function(o) { o.classList.remove("selected"); });
+    opt.classList.add("selected");
+    document.querySelectorAll(".appear-opt[data-theme]").forEach(function(o) { o.classList.toggle("selected", o.getAttribute("data-theme") === opt.getAttribute("data-stheme")); });
+    applyTheme(opt.getAttribute("data-stheme"));
+  });
+});
+
+// ── RENDER HELPERS ──
+function statusBadge(s) {
+  if (s === "inprog") return "<span class=\"status-badge status-inprog\">In Progress</span>";
+  if (s === "completed") return "<span class=\"status-badge status-completed\">Completed</span>";
+  return "<span class=\"status-badge status-notstarted\">Not Started</span>";
+}
+function courseCardHTML(c) {
+  var lbl = c.status === "notstarted" ? "Start Course" : c.status === "completed" ? "Review" : "Continue";
+  return "<div class=\"course-card\"><div class=\"ccard-thumb\" style=\"background:" + c.bg + ";\">" + c.icon + "</div><div class=\"ccard-body\"><div class=\"ccard-cat\">" + c.cat + "</div><div class=\"ccard-title\">" + c.title + "</div><div class=\"ccard-desc\">" + c.desc + "</div><div class=\"ccard-pbar-row\"><div class=\"pbar\"><div class=\"pbar-fill\" style=\"width:" + c.progress + "%;\"></div></div><div class=\"ccard-pct\">" + c.progress + "%</div></div><div class=\"ccard-meta\"><div class=\"ccard-lessons\">" + c.done + " / " + c.total + " lessons</div>" + statusBadge(c.status) + "</div><button class=\"btn-sm btn-sm-purple\" data-open-course=\"" + c.id + "\">" + lbl + "</button></div></div>";
+}
+function quizCardHTML(qz) {
+  if (qz.status === "completed") {
+    return "<div class=\"quiz-card\"><div class=\"qc-course\">" + qz.course + "</div><div class=\"qc-title\">" + qz.title + "</div><div class=\"qc-meta\">" + qz.questions + " questions</div><div class=\"qc-score\">" + (qz.score||0) + "%</div><div style=\"font-size:0.68rem;color:var(--muted);margin-bottom:10px;\">Correct: " + (qz.correct||0) + " of " + (qz.total||4) + "</div><span class=\"status-badge status-completed\">Completed</span></div>";
+  }
+  return "<div class=\"quiz-card\"><div class=\"qc-course\">" + qz.course + "</div><div class=\"qc-title\">" + qz.title + "</div><div class=\"qc-meta\">" + qz.questions + " questions</div><button class=\"btn-continue\" style=\"margin-top:12px;\" data-open-quiz=\"" + qz.id + "\">Start Quiz</button></div>";
+}
+
+function renderAll() {
+  var dg = document.getElementById("dashCourseGrid");
+  if (dg) { var h = ""; COURSES.forEach(function(c) { h += courseCardHTML(c); }); dg.innerHTML = h; }
+  var dqg = document.getElementById("dashQuizGrid");
+  if (dqg) { var qh = ""; QUIZZES.slice(0,4).forEach(function(q) { qh += quizCardHTML(q); }); dqg.innerHTML = qh; }
+  var ag = document.getElementById("allCourseGrid");
+  if (ag) { var ah = ""; COURSES.forEach(function(c) { ah += courseCardHTML(c); }); ag.innerHTML = ah; }
+  var pb = document.getElementById("progressBreakdown");
+  if (pb) {
+    var pbh = "";
+    COURSES.forEach(function(c) { pbh += "<div style=\"margin-bottom:14px;\"><div style=\"display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:5px;\"><span style=\"font-weight:600;\">" + c.icon + " " + c.title + "</span><span style=\"color:var(--g);font-weight:700;\">" + c.progress + "%</span></div><div class=\"pbar\"><div class=\"pbar-fill\" style=\"width:" + c.progress + "%;\"></div></div><div style=\"font-size:0.68rem;color:var(--muted);margin-top:3px;\">" + c.done + " of " + c.total + " lessons " + statusBadge(c.status) + "</div></div>"; });
+    pb.innerHTML = pbh;
+  }
+  var avail = document.getElementById("availableQuizGrid");
+  if (avail) { var avh = ""; QUIZZES.filter(function(q) { return q.status !== "completed"; }).forEach(function(q) { avh += quizCardHTML(q); }); avail.innerHTML = avh || "<div class=\"empty-state\"><div class=\"empty-icon\">✅</div><div class=\"empty-title\">All quizzes completed!</div></div>"; }
+  var comp = document.getElementById("completedQuizGrid");
+  if (comp) { var coh = ""; QUIZZES.filter(function(q) { return q.status === "completed"; }).forEach(function(q) { coh += quizCardHTML(q); }); comp.innerHTML = coh || "<div class=\"empty-state\"><div class=\"empty-icon\">📝</div><div class=\"empty-title\">No completed quizzes yet.</div><div class=\"empty-sub\">Complete a quiz to see your results here.</div></div>"; }
+}
+
+// ── EVENT DELEGATION ──
+document.addEventListener("click", function(e) {
+  var cb = e.target.closest("[data-open-course]");
+  if (cb) { openCourse(cb.getAttribute("data-open-course")); return; }
+  var qb = e.target.closest("[data-open-quiz]");
+  if (qb) { startDashQuiz(qb.getAttribute("data-open-quiz")); return; }
+});
+_on("dashContinueBtn","click", function() {
+  var inProg = COURSES.filter(function(c) { return c.status === "inprog"; });
+  var notStarted = COURSES.filter(function(c) { return c.status === "notstarted"; });
+  var target = inProg.length > 0 ? inProg[0] : (notStarted.length > 0 ? notStarted[0] : COURSES[0]);
+  if (target) openCourse(target.id);
+});
+
+
+var DB = {
+  business: { title: "Launch Your First Business in 30 Days", icon: "💼", lessons: [
+    { t: "Step 1 — Finding Your Business Idea", b: "Every successful business starts with solving a real problem.\n\nKey Points:\nYour Pain Points — What frustrates you daily? Others face the same problem.\nYour Skills — What are you good at that others would pay for?\nMarket Gaps — What does your community need that does not exist yet?\nTrends — What is growing that you could build a business around?\n\nAction Step: Write down 5 problems you face daily. Next to each one write a simple solution. This is how most successful businesses start." },
+    { t: "Step 2 — Validating Your Idea", b: "Most businesses fail because they build something nobody wants. Test before you build.\n\nValidation Methods:\nTalk to 10 People — Ask if they have the problem and would pay to solve it.\nGoogle Trends — Is search interest growing or dying?\nStudy Competitors — Competitors prove people pay for this.\nPost on Social Media — Gauge interest with a simple post.\n\nAction Step: Message 5 people today. Ask if they would pay to solve the problem." },
+    { t: "Step 3 — Your Simple Business Plan", b: "You do not need a 50-page plan. Answer these 5 questions clearly.\n\nThe 5 Questions:\nWhat are you selling? — Describe in one clear sentence.\nWho is your customer? — Age, location, specific problem they have.\nHow will you make money? — One-time payment, subscription, or service fees.\nHow will customers find you? — Social media, word of mouth, referrals.\nWhat do you need to start? — List your startup costs. Keep them low.\n\nAction Step: Answer all 5 questions in your notes right now. One sentence each." },
+    { t: "Step 4 — Launch and Get Your First Customer", b: "The biggest mistake is waiting until everything is perfect. Launch the simplest version today.\n\nYour 7-Day Launch Plan:\nDay 1 — Set up a social media page for your business.\nDay 2-3 — Tell 20 people about your business personally.\nDay 4-5 — Post your offer with a clear call to action.\nDay 7 — Close your first paying customer.\n\nRemember: Done is better than perfect. Launch now, improve later." }
+  ]},
+  finance: { title: "Personal Finance 101: Control Your Money", icon: "💰", lessons: [
+    { t: "Step 1 — Know Where Your Money Goes", b: "Most people have a money awareness problem not a money problem.\n\nTrack These 3 Numbers:\nTotal Monthly Income — All money coming in from every source.\nTotal Monthly Expenses — Rent, food, phone, subscriptions, everything.\nWhat Is Left Over — Income minus expenses. This is your starting point.\n\nAction Step: Go through your last 30 days of bank transactions. Add up everything spent. Most people are shocked by what they find." },
+    { t: "Step 2 — The 50/30/20 Budget Rule", b: "The simplest budgeting system that works for anyone at any income level.\n\nThe Three Categories:\n50% Needs — Rent, groceries, utilities, transport. Non-negotiable expenses.\n30% Wants — Eating out, shopping, entertainment. Lifestyle spending.\n20% Savings and Investing — Pay yourself first before anything else.\n\nAction Step: Calculate what 50%, 30%, and 20% looks like in actual dollars for your income. Write those numbers down." },
+    { t: "Step 3 — Build Your Emergency Fund", b: "An emergency fund is money set aside for unexpected events. Without one any emergency forces you into debt.\n\nYour Emergency Fund Goals:\nLevel 1 — One month of expenses saved. Your starter goal.\nLevel 2 — Three months of expenses saved. Real security.\nLevel 3 — Six months of expenses saved. Full protection.\n\nAction Step: Transfer even $20 into a separate savings account today. The habit matters more than the amount at first." },
+    { t: "Step 4 — Investing Basics", b: "Saving money keeps it safe. Investing money makes it grow.\n\nInvesting Options for Beginners:\nIndex Funds — Invest in the whole stock market at once. Low risk, long-term growth.\nReal Estate — Buy property to rent. Requires more capital but builds serious wealth.\nYour Own Business — Highest risk but highest potential return.\nYourself — Learning skills that increase your income is the best investment.\n\nStart small. Be consistent. Time in the market beats timing the market." }
+  ]},
+  development: { title: "High Performance Habits and Productivity", icon: "🌱", lessons: [
+    { t: "Step 1 — Understanding High Performance", b: "High performers are not smarter. They have built better systems and habits that run automatically.\n\nThe 5 Traits of High Performers:\nClarity — They know exactly what they want and why.\nEnergy Management — They protect their energy like money in the bank.\nRaise Necessity — They make their goals feel urgent and non-negotiable.\nHigh Value Focus — They work on important tasks not just being busy.\nDevelop Influence — They lead themselves first.\n\nAction Step: Write your top 3 goals for the next 90 days. Be specific." },
+    { t: "Step 2 — Build Your Morning Routine", b: "How you start your morning sets the tone for everything that follows.\n\nThe High Performance Morning Stack:\n5 mins — Drink a full glass of water immediately on waking.\n10 mins — Walk, stretch, or light exercise to wake your body.\n5 mins — Journal or set your 3 intentions for the day.\nTHEN — Check your phone. Never before completing the above.\n\nAction Step: Tomorrow morning before touching your phone drink water and spend 10 minutes on yourself." },
+    { t: "Step 3 — Mastering Focus and Deep Work", b: "Every notification costs you up to 23 minutes of deep focus to recover.\n\nThe Pomodoro Productivity Method:\nWork 25 minutes — Phone face down, notifications off, one task only.\nRest 5 minutes — Walk or stretch. Not social media.\nRepeat 4 times — Then take a longer 30-minute break.\nDo your MIT first — Most Important Task every morning without exception.\n\nAction Step: Set a 25-minute timer right now. Work on your most important task with zero distractions." },
+    { t: "Step 4 — Habits That Stick Forever", b: "Every habit follows the same loop: Cue, Craving, Response, Reward.\n\nThe 4 Laws of Habit Building:\nMake it Obvious — Set gym clothes out the night before.\nMake it Attractive — Pair habits you need with things you enjoy.\nMake it Easy — Start with 2 minutes. Never miss twice in a row.\nMake it Satisfying — Track your habits visually. The satisfaction keeps you going.\n\nYou are not your habits. But your habits create your life." }
+  ]},
+  writing: { title: "Content Writing and Copywriting", icon: "📝", lessons: [
+    { t: "Step 1 — What is Good Writing?", b: "Good writing is not about perfect grammar. It is about clarity.\n\nThe 3 Rules of Great Writing:\nWrite Simply — Short sentences. Common words. If a 12-year-old cannot understand it rewrite it.\nWrite with Purpose — Every sentence must earn its place. Delete what adds no value.\nWrite for the Reader — Ask what does the reader want to know. Answer that.\n\nAction Step: Write one paragraph about yourself in the simplest words possible. Read it aloud." },
+    { t: "Step 2 — Headlines That Stop the Scroll", b: "8 out of 10 people only read the headline. Only 2 read the rest.\n\n5 Headline Formulas That Work:\nHow to [Result] Without [Pain] — How to Save Money Without Giving Up Coffee\n[Number] Ways to [Goal] — 7 Ways to Wake Up With More Energy\nWhy [Surprising Statement] — Why Working Less Makes You More Productive\nWhat Nobody Tells You About [Topic] — What Nobody Tells You About Business\nThe Simple Guide to [Topic] — The Simple Guide to Starting a Business\n\nAction Step: Write 5 headlines using these formulas for any topic you care about." },
+    { t: "Step 3 — The AIDA Copywriting Formula", b: "AIDA is the most proven writing structure ever created.\n\nAIDA Breakdown:\nA — Attention: Grab attention with a bold headline or shocking opening.\nI — Interest: Build interest by describing the problem clearly.\nD — Desire: Create desire by painting the picture of life after the solution.\nA — Action: Tell them exactly what to do next. Be specific and create urgency.\n\nAction Step: Write a short social media caption using AIDA. Keep it under 150 words." },
+    { t: "Step 4 — Build Your Daily Writing Habit", b: "Writing is a muscle. Train it every day.\n\nYour 30-Day Writing Plan:\nWeek 1 — Write 3 sentences every morning about anything at all.\nWeek 2 — Write one social media post per day using a headline formula.\nWeek 3 — Write one short article using AIDA from start to finish.\nWeek 4 — Publish your writing publicly on social media or a blog.\n\nImperfect content posted beats perfect content planned. Write now edit later." }
+  ]},
+  speaking: { title: "Public Speaking and Communication", icon: "🗣️", lessons: [
+    { t: "Step 1 — Overcoming Speaking Fear", b: "Fear of public speaking is the number one fear in the world. The fear is about judgment not speaking.\n\n4 Truths That Eliminate Speaking Fear:\nPeople are not judging you — They are thinking about themselves.\nNervousness looks like confidence — Your racing heart is invisible to the audience.\nRepetition cures fear — The more you speak the less it scares you.\nFocus on message not yourself — Self-consciousness disappears when you serve your audience.\n\nAction Step: Record a 60-second video of yourself talking about anything. Watch it back." },
+    { t: "Step 2 — Structure Any Speech in 3 Minutes", b: "Every great speech follows the same structure.\n\nThe 3-Part Formula:\nOpening — Hook them immediately with a bold statement or question. Never start with your name.\nBody — 3 clear points only. Each needs one idea one example and one takeaway.\nClose — Summarize in one sentence then end with a call to action. Land it strongly.\n\nAction Step: Prepare a 2-minute speech about your biggest goal using this structure. Practice out loud 3 times." },
+    { t: "Step 3 — Body Language and Voice", b: "Only 7% of your message comes from your words. 38% from tone. 55% from body language.\n\nHigh Impact Body Language Habits:\nEye Contact — Hold for 3-5 seconds per person. Shows confidence and builds trust.\nPosture — Stand tall feet shoulder-width apart shoulders back. Never slouch.\nGestures — Use natural hand gestures to emphasize points. Keep hands visible.\nVoice Variety — Vary your pace volume and pitch. Use intentional pauses.\n\nAction Step: Watch your recorded speech with sound off. What does your body say?" },
+    { t: "Step 4 — Everyday Communication Skills", b: "Great communication happens every single day.\n\n5 Daily Communication Rules:\nListen More Than You Talk — The best communicators ask great questions and truly listen.\nBe Direct — Say what you mean. Avoid kind of and sort of. Be clear and specific.\nUse Names — Using someone's name immediately builds connection and trust.\nPause Before Responding — A 2-second pause shows thoughtfulness.\nConfirm Understanding — Summarize what was agreed to prevent miscommunication.\n\nPractice one of these every single day." }
+  ]},
+  goals: { title: "Goal Setting and Life Planning", icon: "🎯", lessons: [
+    { t: "Step 1 — Why Most Goals Fail", b: "Most people set vague goals like get fit or make more money. Without a specific target your brain has no roadmap.\n\nWhy Goals Fail:\nToo Vague — Get healthy means nothing. Run 3km by March 1st is a real goal.\nNo Deadline — A goal without a deadline is just a dream.\nNo Daily Action — Big goals need small daily steps.\nWrong Why — If your reason is not strong enough you will quit when it gets hard.\n\nAction Step: Write one goal you have repeated for months but never achieved. Ask honestly why it failed." },
+    { t: "Step 2 — The SMART Goal System", b: "SMART turns vague wishes into clear achievable targets.\n\nSMART Breakdown:\nS — Specific: Save $3,000 not save money.\nM — Measurable: How will you know when you achieved it? Use numbers.\nA — Achievable: Is this realistic? Stretch yourself but stay grounded.\nR — Relevant: Does this align with your bigger life vision?\nT — Time-Bound: By December 31st creates urgency and commitment.\n\nAction Step: Rewrite your goal from Step 1 using all 5 SMART criteria." },
+    { t: "Step 3 — Breaking Goals Into Daily Actions", b: "Big goals are just small steps repeated.\n\nThe Reverse Engineering Method:\n1 Write your SMART goal and its deadline clearly.\n2 Break it into monthly milestones.\n3 Break monthly into weekly targets.\n4 Identify your single most important daily action and do it without exception.\n\nAction Step: Apply all 4 steps to your SMART goal right now." },
+    { t: "Step 4 — Stay Consistent When Motivation Fades", b: "Motivation disappears around week 3. People who achieve goals have systems that keep them moving.\n\n5 Consistency Strategies:\nSchedule It — Put your daily action in your calendar like a meeting you cannot miss.\nAccountability Partner — Tell someone your goal. Check in weekly.\nTrack Your Streak — Mark each day you complete your action. Never break the chain.\nReward Milestones — Celebrate every 30 days of consistency.\nNever Miss Twice — Missing one day is human. Missing two is the start of quitting.\n\nConsistency beats intensity every single time." }
+  ]},
+  networking: { title: "Networking and Relationship Building", icon: "🤝", lessons: [
+    { t: "Step 1 — Networking is About Giving", b: "Real networking is building genuine relationships before you need anything from people.\n\nKey Principles:\nGive First — Share useful information and offer help with no expectation of return.\nBuild Before You Need — Connect with people when you do not need anything from them.\nBe Genuinely Curious — Ask people about their work and goals. People love to feel heard.\nNever Keep Score — Give freely and let value compound over time.\n\nAction Step: Message one person today you admire. Do not ask for anything. Just say what you appreciate." },
+    { t: "Step 2 — Starting Conversations With Anyone", b: "Great conversationalists use simple techniques that anyone can learn.\n\nThe FORD Technique:\nF — Family: Ask about their family or background.\nO — Occupation: What do they do and how did they get into it?\nR — Recreation: What do they enjoy outside of work?\nD — Dreams: What are they working toward?\n\nAlso ask open-ended questions. Mirror their energy level. Focus on listening not on what you will say next.\n\nAction Step: Use one FORD topic in your next conversation today." },
+    { t: "Step 3 — Build Your Network Online", b: "LinkedIn has over 900 million professionals. You can connect with mentors and clients from your phone.\n\nLinkedIn Strategy:\nOptimize your profile — Professional photo clear headline value-focused summary.\nPost valuable content — Share insights in your field at least once a week.\nComment genuinely — Leave thoughtful comments on posts by people you want to connect with.\nPersonalized requests — Always include a personal note explaining why you want to connect.\n\nAction Step: Update your LinkedIn headline today. Then send 3 personalized connection requests." },
+    { t: "Step 4 — Maintain Relationships Long-Term", b: "Meeting someone once is not networking. Real networking is maintaining relationships over months and years.\n\nLong-Term Relationship Habits:\nSchedule Check-Ins — Set reminders to message key contacts every 2-3 months.\nCelebrate Their Wins — Comment on promotions and congratulate achievements.\nMake Introductions — Connect two people who should know each other. Makes you indispensable.\nShare Resources — When you read something relevant to a contact send it with a short note.\n\nThe strongest networks are built by people who consistently show up and add value." }
+  ]},
+  time: { title: "Time Management Mastery", icon: "⏰", lessons: [
+    { t: "Step 1 — Why You Never Have Enough Time", b: "Everyone gets 24 hours. Successful people work with their time differently. Most people have a priorities problem not a time problem.\n\nTime Wasters vs Investments:\nTime Wasters: Mindless scrolling unplanned meetings saying yes to everything constant notifications.\nTime Investments: Deep work planning learning rest relationships exercise.\n\nAction Step: Track every 30 minutes of tomorrow in a notes app. At end of day categorize each block. The data will shock you." },
+    { t: "Step 2 — The Eisenhower Matrix", b: "What is important is seldom urgent and what is urgent is seldom important.\n\nThe Four Boxes:\nDO FIRST — Urgent and Important: Real crises true deadlines. Handle immediately.\nSCHEDULE — Not Urgent and Important: Goals learning. Block time for these every week.\nDELEGATE — Urgent and Not Important: Interruptions. Pass to someone else if possible.\nELIMINATE — Not Urgent and Not Important: Time wasters. Cut these completely.\n\nAction Step: Write your top 10 tasks this week. Place each in the correct box." },
+    { t: "Step 3 — Time Blocking Your Calendar", b: "Time blocking assigns specific tasks to specific time slots before the day begins. Every hour has a purpose.\n\nExample Schedule:\n6-8am — Morning routine. Exercise mindset breakfast.\n8-10am — Deep work. Most important project zero interruptions.\n10-12pm — Meetings calls emails collaboration.\n1-3pm — Second deep work session and admin tasks.\n3-5pm — Learning personal development creative work.\n\nAction Step: Block out tomorrow in your phone calendar right now. Every hour needs a label." },
+    { t: "Step 4 — Learn to Say No", b: "Every yes to something unimportant is a no to something that matters.\n\nStrategies for Protecting Your Time:\nThe Hell Yes Rule — If it does not excite you completely it is a no.\nBatch Distractions — Check email and messages at set times only.\nTurn Off Notifications — Every notification taxes your focus. Turn off all non-essential alerts.\nCreate Boundaries — Set work hours and stick to them.\n\nRemember: No is a complete sentence. Saying no to most things means you can say yes fully to what matters." }
+  ]},
+  thinking: { title: "Critical Thinking and Problem Solving", icon: "🧠", lessons: [
+    { t: "Step 1 — What is Critical Thinking?", b: "Critical thinking is the ability to analyze information objectively question assumptions and reach well-reasoned conclusions.\n\nThe Foundation:\nQuestion Everything — Do not accept information because it sounds confident. Ask for evidence.\nSeek Multiple Sources — One source is a data point. Multiple sources reveal the truth.\nQuestion Your Biases — We all see through filters. Recognizing yours is the first step.\nSeparate Facts from Opinions — Facts can be verified. Opinions are interpretations.\n\nAction Step: Pick one belief you hold strongly. Now argue the opposite side as convincingly as possible." },
+    { t: "Step 2 — Solve Any Problem", b: "Most people jump to solutions and end up solving the wrong problem.\n\nThe 5-Step Framework:\n1 Define the real problem not the symptoms.\n2 Gather information. What do you know and need to find out?\n3 Generate at least 3 possible solutions before choosing any.\n4 Evaluate each option and choose the best one.\n5 Implement then review results and adjust.\n\nAction Step: Think of a current problem. Apply all 5 steps right now." },
+    { t: "Step 3 — Avoid Common Thinking Traps", b: "Cognitive biases are systematic errors built into how the human brain works.\n\nKey Biases to Know:\nConfirmation Bias — Only noticing information that confirms what you already believe.\nAnchoring Bias — Relying too heavily on the first piece of information you hear.\nHerd Mentality — Doing something because everyone else is doing it.\nSunk Cost Fallacy — Continuing something bad because you already invested in it.\n\nAction Step: Identify a recent decision influenced by one of these biases. What would you decide differently?" },
+    { t: "Step 4 — Make Better Decisions Every Day", b: "The quality of your life is the sum of the quality of your decisions.\n\nDecision Making Frameworks:\nThe 10-10-10 Rule — How will I feel about this in 10 minutes 10 months and 10 years?\nPros and Cons List — Writing forces clarity that thinking alone cannot provide.\nSleep on Big Decisions — Never decide when emotional or exhausted.\nDefine Your Values First — Decisions get easier when you know what matters most.\n\nPractice one framework today on any decision you face." }
+  ]},
+  socialmedia: { title: "Social Media for Beginners", icon: "📱", lessons: [
+    { t: "Step 1 — Choose Your Platform", b: "The biggest mistake beginners make is trying to be on every platform at once. Pick one master it then expand.\n\nPlatform Guide:\nInstagram — Lifestyle fashion food art personal brand. Visual content.\nTikTok — Entertainment and education for young audiences through short videos.\nLinkedIn — Professional networking B2B business career growth and thought leadership.\nYouTube — Long-form education tutorials and building deep loyal audiences over time.\n\nAction Step: Decide on ONE platform to focus on for the next 90 days. Commit fully." },
+    { t: "Step 2 — Create Content People Share", b: "People share content that makes them look good feel something or helps someone they care about.\n\nThe 4 Content Types:\nEducate — Teach something useful. 3 things I wish I knew before starting a business.\nEntertain — Make people smile or laugh. Relatable content gets massive shares.\nInspire — Share your story or a lesson from failure. Vulnerability connects people.\nProvoke Thought — Share a surprising opinion in your niche. Debate drives engagement.\n\nAction Step: Create and post one piece of content today. Do not overthink it. Post now." },
+    { t: "Step 3 — Grow Your Following", b: "Growing a following is about showing up consistently and delivering real value.\n\nGrowth Strategies:\nPost 3-5 times per week — Consistency beats viral moments for sustainable growth.\nReply to every comment — Especially in your first 1,000 followers. Engagement builds community.\nUse relevant hashtags — Research what your target audience follows and use those tags.\nCollaborate — Partner with accounts in your niche for shoutouts and joint content.\n\nAction Step: Comment genuinely on 10 posts in your niche today. Do this every day for 30 days." },
+    { t: "Step 4 — Turn Followers Into Income", b: "You do not need millions of followers to make money. Even 1,000 highly engaged followers can generate real income.\n\nMonetization Options:\nSell Your Own Products or Services — Use your platform to promote what you offer directly.\nBrand Partnerships — Once you have an engaged audience companies will pay to reach them.\nAffiliate Marketing — Recommend products and earn commission for every sale through your link.\nDigital Products — Sell ebooks templates or guides directly to your audience.\n\nHave something to offer and ask for the sale clearly and confidently." }
+  ]},
+  internet: { title: "How the Internet Works for Beginners", icon: "🌐", lessons: [
+    { t: "Step 1 — What is the Internet?", b: "The internet is a massive global network of computers all connected together.\n\nKey Terms Explained Simply:\nServers — Powerful computers that store websites and data. When you visit a site you access a server.\nClients — Your phone or laptop. The device you use to access information on servers.\nIP Address — Every device has a unique address on the internet like a home address for your computer.\nDNS — The internet phonebook. Translates google.com into an IP address your device uses.\n\nAction Step: Type 8.8.8.8 into your browser. This is Google's DNS server." },
+    { t: "Step 2 — How Websites Work", b: "In less than a second between typing a URL and seeing the page dozens of things happen.\n\nThe 5-Step Process:\n1 You type a URL like youtube.com into your browser.\n2 DNS converts youtube.com into an IP address number.\n3 Your browser sends a request to YouTube server at that IP address.\n4 Server sends back HTML CSS and JavaScript files to your browser.\n5 Browser reads those files and displays the page you see.\n\nAll of this happens in under 300 milliseconds faster than a blink." },
+    { t: "Step 3 — Staying Safe Online", b: "Cybercrime costs the world over 8 trillion dollars per year. Most attacks succeed because of human error.\n\nEssential Safety Habits:\nStrong Passwords — Use long random phrases or a password manager. Never reuse passwords.\nEnable 2-Factor Auth — Even with your password someone still cannot log in without your phone.\nPhishing Awareness — Scam emails look real. Always check the sender address before clicking any link.\nHTTPS Only — Only enter personal info on sites starting with https. The padlock means encrypted.\n\nAction Step: Enable two-factor authentication on your email account today." },
+    { t: "Step 4 — Wi-Fi, Apps, and the Cloud", b: "Three terms everyone uses but few truly understand.\n\nSimple Explanations:\nWi-Fi — A wireless radio signal that connects your device to a router which connects to internet cables.\nApps — Software programs for phones that communicate with servers over the internet.\nThe Cloud — Just someone else computer. iCloud and Google Drive store files on servers somewhere in the world.\n\nUnderstanding these makes you more confident and safer with any digital tool." }
+  ]}
+};
+
+
+
+var QDB = {
+  business: [{q:"What is the most important first step when starting a business?",o:["Buy a domain name","Find a problem to solve","Design a logo","Set up social media"],c:1},{q:"What does validating your idea mean?",o:["Making a logo","Building the product first","Testing if people will actually pay for it","Registering the company"],c:2},{q:"A business plan needs to be:",o:["At least 50 pages long","Simple and focused — even one page works","Written by a professional","Submitted to a bank"],c:1},{q:"When should you launch?",o:["When everything is perfect","Never — wait for funding","As soon as possible with a simple version","After 1 year of planning"],c:2}],
+  finance: [{q:"What is the first step to taking control of your finances?",o:["Investing in stocks","Knowing exactly where your money goes","Cutting all spending","Getting a second job"],c:1},{q:"In the 50/30/20 rule what does 20% go toward?",o:["Food and rent","Entertainment","Savings and investing","Taxes"],c:2},{q:"What is an emergency fund for?",o:["Vacations","Unexpected expenses like medical bills or job loss","Daily groceries","Monthly rent"],c:1},{q:"Why is investing better than just saving?",o:["It is not — saving is always better","Investing beats inflation and grows your wealth","Investing has no risk","Banks pay high interest"],c:1}],
+  development: [{q:"What do high performers rely on instead of motivation?",o:["Luck and talent","Habits and systems that run automatically","Working 18 hours a day","Waiting for the right moment"],c:1},{q:"What is the first step in a high performance morning?",o:["Check social media","Answer emails","Drink water and move your body","Watch the news"],c:2},{q:"How long is one Pomodoro focused work session?",o:["10 minutes","1 hour","25 minutes","45 minutes"],c:2},{q:"What is the first law of building a habit that sticks?",o:["Make it difficult","Make it obvious","Make it expensive","Make it secret"],c:1}],
+  writing: [{q:"What is the most important rule of good writing?",o:["Use big vocabulary","Write clearly and simply","Write long sentences","Use complex grammar"],c:1},{q:"What percentage of people read past the headline?",o:["80 percent","50 percent","20 percent","100 percent"],c:2},{q:"What does AIDA stand for?",o:["Attract Inform Develop Act","Attention Interest Desire Action","Audience Idea Design Appeal","Analyze Improve Define Achieve"],c:1},{q:"How do you improve at writing?",o:["Read only","Write every single day","Take grammar classes","Study famous authors only"],c:1}],
+  speaking: [{q:"What is the root cause of public speaking fear?",o:["Loud noises","Fear of judgment from others","Not knowing your topic","Standing up too long"],c:1},{q:"How much of communication is body language?",o:["7 percent","38 percent","55 percent","100 percent"],c:2},{q:"What is the correct speech structure?",o:["Body Opening Close","Opening Body with 3 points Close","Introduction Conclusion Examples","Random order is fine"],c:1},{q:"What should you do first when starting a conversation?",o:["Talk about yourself","Ask a closed yes/no question","Ask an open-ended question","Give advice immediately"],c:2}],
+  goals: [{q:"What does the S in SMART goals stand for?",o:["Simple","Specific","Sustainable","Strong"],c:1},{q:"Why do most goals fail?",o:["Goals are impossible","Too vague with no deadline or daily action","People are lazy","Goals take too long"],c:1},{q:"What is the best way to stay consistent after motivation fades?",o:["Wait for motivation","Build systems and track your daily streak","Set bigger goals","Work harder in short bursts"],c:1},{q:"What should you do when you miss a day on your goal?",o:["Quit and start over","Never miss twice — get back immediately","Take a full week off","Lower the goal"],c:1}],
+  networking: [{q:"What is real networking built on?",o:["Asking for favors","Giving value first","Collecting business cards","Only talking to famous people"],c:1},{q:"What does FORD stand for in conversation?",o:["Facts Opinions Results Data","Family Occupation Recreation Dreams","Friends Office Roles Duties","Focus Objectives Results Deadlines"],c:1},{q:"How do you maintain relationships long-term?",o:["Only contact people when you need something","Schedule regular check-ins and celebrate their wins","Send mass emails","Follow them on social media only"],c:1},{q:"What makes a LinkedIn connection request more effective?",o:["A generic request","A long formal letter","A personalized note explaining why","No message at all"],c:2}],
+  time: [{q:"What do most people actually have?",o:["A time problem","A priorities problem","Both equally","Neither"],c:1},{q:"In the Eisenhower Matrix what goes in ELIMINATE?",o:["Urgent and Important","Not Urgent and Important","Urgent and Not Important","Not Urgent and Not Important"],c:3},{q:"What is time blocking?",o:["Blocking social media sites","Assigning tasks to specific time slots in your calendar","Working nonstop","Setting timers randomly"],c:1},{q:"What is the Hell Yes Rule?",o:["Only accept work that pays very well","If a request does not excite you it is a no","Say yes to everything","Always help others first"],c:1}],
+  thinking: [{q:"What is confirmation bias?",o:["Being confident in your thinking","Only noticing info that confirms what you already believe","Always changing your mind","Thinking too slowly"],c:1},{q:"What is the sunk cost fallacy?",o:["Spending too much money","Continuing something bad because you invested in it","Saving money poorly","Making fast decisions"],c:1},{q:"What is the first step in solving any problem?",o:["Jump to solutions immediately","Define the real root cause","Ask for help right away","Ignore the problem"],c:1},{q:"What is the 10-10-10 decision rule?",o:["Spend 10 minutes thinking","How will I feel in 10 minutes 10 months and 10 years","Make 10 pros and cons","Sleep for 10 hours first"],c:1}],
+  socialmedia: [{q:"What is the biggest mistake beginners make on social media?",o:["Posting too much","Trying to be on every platform at once","Using hashtags","Responding to comments"],c:1},{q:"What type of content gets shared most?",o:["Content that makes people feel something or helps others","Long boring posts","Content with no images","Content posted randomly"],c:0},{q:"How many times per week should you post minimum?",o:["Once a month","Once a week","3-5 times per week","Every hour"],c:2},{q:"How many followers do you need to start making money?",o:["1 million","100,000","50,000","Even 1,000 highly engaged followers can generate income"],c:3}],
+  internet: [{q:"What is the internet?",o:["A single giant computer","A massive global network of computers connected together","A satellite system only","A government database"],c:1},{q:"What does DNS do?",o:["Stores your passwords","Translates website names into IP addresses","Speeds up your Wi-Fi","Blocks hackers"],c:1},{q:"What does HTTPS mean?",o:["The site is popular","The connection is encrypted and secure","The site has a payment page","The site is government approved"],c:1},{q:"What is the cloud?",o:["Weather data storage","A type of Wi-Fi signal","Someone else computer storing your data on the internet","An app on your phone"],c:2}]
+};
+
+// COURSE VIEWER
+var curCourse = null;
+var curLesson = 0;
+var answers = {};
+
+
+
+// Start quiz from dashboard quiz cards
+function startDashQuiz(qid) {
+  // Map quiz id to course key for QDB lookup
+  var courseKey = qid.replace('q_', '');
+  if (QDB[courseKey]) {
+    curQ = qid;
+    startQuiz(courseKey);
+  } else {
+    toast("Quiz content coming soon!");
+  }
+}
+
+
+
+function openCourse(key) {
+  if (!DB[key]) { toast("Course not found"); return; }
+  curCourse = key;
+  curLesson = 0;
+  answers = {};
+  document.getElementById("cv").style.display = "block";
+  document.body.style.overflow = "hidden";
+  renderLesson();
+}
+
+function renderLesson() {
+  var course = DB[curCourse];
+  var lesson = course.lessons[curLesson];
+  var total = course.lessons.length;
+  var pct = Math.round(((curLesson + 1) / total) * 100);
+  var isLast = curLesson === total - 1;
+
+  document.getElementById("cvTitle").textContent = course.title;
+  document.getElementById("cvProg").textContent = "Lesson " + (curLesson + 1) + " of " + total;
+
+  var lines = lesson.b.split("\n");
+  var html = "<div style=\"font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C8A84B;margin-bottom:0.6rem;\">Lesson " + (curLesson + 1) + " of " + total + "</div>";
+  html += "<div style=\"font-family:Bebas Neue,sans-serif;font-size:1.6rem;letter-spacing:0.04em;color:#fff;margin-bottom:0.8rem;\">" + lesson.t + "</div>";
+  html += "<div style=\"background:rgba(255,255,255,0.08);border-radius:8px;height:5px;overflow:hidden;margin-bottom:1.2rem;\"><div style=\"height:100%;border-radius:8px;background:linear-gradient(90deg,#5B2D8E,#C8A84B);width:" + pct + "%;;\"></div></div>";
+  for (var i = 0; i < lines.length; i++) {
+    var line = lines[i];
+    if (line === "") { html += "<br>"; }
+    else { html += "<p style=\"font-size:0.88rem;color:rgba(255,255,255,0.78);line-height:1.7;margin-bottom:0.6rem;\">" + line + "</p>"; }
+  }
+  if (isLast) {
+    html += "<div style=\"background:rgba(200,168,75,0.08);border:1px solid rgba(200,168,75,0.25);border-radius:12px;padding:18px;margin-top:1.2rem;\"><div style=\"font-weight:700;font-size:0.92rem;color:#C8A84B;margin-bottom:6px;\">Lesson Complete!</div><div style=\"font-size:0.82rem;color:rgba(255,255,255,0.7);margin-bottom:0.8rem;\">Take the quiz to test what you learned!</div><button id=\"quizStartBtn\" style=\"width:100%;padding:13px;border-radius:10px;background:linear-gradient(135deg,#C8A84B,#E8C86A);color:#0A0A0F;border:none;font-weight:800;font-size:0.88rem;cursor:pointer;\">Take the Quiz</button></div>";
+  }
+  document.getElementById("lessonContent").innerHTML = html;
+  if (isLast) {
+    document.getElementById("quizStartBtn").addEventListener("click", openQuiz);
+  }
+  var dots = "";
+  for (var d = 0; d < total; d++) {
+    dots += "<div class=\"cvdot\" data-i=\"" + d + "\" style=\"background:" + (d === curLesson ? "#C8A84B" : "rgba(255,255,255,0.15)") + ";\"></div>";
+  }
+  document.getElementById("cvDots").innerHTML = dots;
+  document.querySelectorAll(".cvdot").forEach(function(dot) {
+    dot.addEventListener("click", function() {
+      curLesson = parseInt(dot.getAttribute("data-i"));
+      renderLesson();
+      document.getElementById("cv").scrollTo(0, 0);
+    });
+  });
+  document.getElementById("cvPrev").style.opacity = curLesson === 0 ? "0.3" : "1";
+  document.getElementById("cvNext").textContent = isLast ? "Take Quiz" : "Next Lesson";
+  document.getElementById("cv").scrollTo(0, 0);
+}
+
+document.getElementById("cvBack").addEventListener("click", function() {
+  document.getElementById("cv").style.display = "none";
+  document.body.style.overflow = "auto";
+});
+document.getElementById("cvPrev").addEventListener("click", function() {
+  if (curLesson > 0) { curLesson--; renderLesson(); }
+});
+document.getElementById("cvNext").addEventListener("click", function() {
+  // Save lesson progress to database
+  if (curCourse && curLesson >= 0) { saveLessonProgress(curCourse, curLesson + 1); }
+  var total = DB[curCourse].lessons.length;
+  if (curLesson < total - 1) { curLesson++; renderLesson(); }
+  else openQuiz();
+});
+
+// Course button delegation
+document.addEventListener("click", function(e) {
+  var btn = e.target;
+  if (btn.classList.contains("cbtn")) {
+    var key = btn.getAttribute("data-course");
+    if (key) openCourse(key);
+  }
+});
+
+// QUIZ
+function openQuiz() {
+  var qlist = QDB[curCourse];
+  if (!qlist) { toast("Quiz not available"); return; }
+  answers = {};
+  var html = "";
+  for (var qi = 0; qi < qlist.length; qi++) {
+    var q = qlist[qi];
+    html += "<div style=\"margin-bottom:1.4rem;\">";
+    html += "<div style=\"font-weight:700;font-size:0.9rem;color:#fff;margin-bottom:0.7rem;\">" + (qi + 1) + ". " + q.q + "</div>";
+    html += "<div style=\"display:flex;flex-direction:column;gap:7px;\">";
+    for (var oi = 0; oi < q.o.length; oi++) {
+      html += "<label style=\"display:flex;align-items:center;gap:10px;padding:11px 14px;background:#1C1730;border:1px solid rgba(255,255,255,0.08);border-radius:9px;cursor:pointer;font-size:0.83rem;color:rgba(255,255,255,0.8);\">";
+      html += "<input type=\"radio\" name=\"q" + qi + "\" value=\"" + oi + "\" style=\"accent-color:#5B2D8E;\"> " + q.o[oi];
+      html += "</label>";
+    }
+    html += "</div></div>";
+  }
+  document.getElementById("quizContent").innerHTML = html;
+  document.querySelectorAll("#quizContent input[type=radio]").forEach(function(r) {
+    r.addEventListener("change", function() {
+      answers[parseInt(r.name.replace("q", ""))] = parseInt(r.value);
+    });
+  });
+  document.getElementById("quizSubmit").style.display = "block";
+  document.getElementById("quizModal").classList.add("active");
+  document.getElementById("quizModal").scrollTo(0, 0);
+}
+
+document.getElementById("quizSubmit").addEventListener("click", function() {
+  var qlist = QDB[curCourse];
+  var score = 0;
+  var allAnswered = true;
+  for (var i = 0; i < qlist.length; i++) {
+    if (answers[i] === undefined) { allAnswered = false; break; }
+    if (answers[i] === qlist[i].c) score++;
+  }
+  if (!allAnswered) { toast("Please answer all questions first"); return; }
+  var pct = Math.round(score / qlist.length * 100);
+  var passed = pct >= 60;
+  var inputs = document.querySelectorAll("#quizContent input[type=radio]");
+  for (var ii = 0; ii < inputs.length; ii++) {
+    var inp = inputs[ii];
+    inp.disabled = true;
+    var qIdx = parseInt(inp.name.replace("q", ""));
+    var oIdx = parseInt(inp.value);
+    var lbl = inp.parentElement;
+    if (oIdx === qlist[qIdx].c) { lbl.style.background = "rgba(76,175,80,0.25)"; lbl.style.border = "1px solid #81C784"; }
+    else if (answers[qIdx] === oIdx) { lbl.style.background = "rgba(244,67,54,0.25)"; lbl.style.border = "1px solid #E57373"; }
+  }
+  document.getElementById("quizSubmit").style.display = "none";
+  var result = document.createElement("div");
+  result.style.marginTop = "1rem";
+  result.style.padding = "20px";
+  result.style.borderRadius = "12px";
+  result.style.textAlign = "center";
+  result.style.background = passed ? "rgba(76,175,80,0.15)" : "rgba(244,67,54,0.1)";
+  result.style.border = passed ? "1px solid #81C784" : "1px solid #E57373";
+  var iconEl = document.createElement("div");
+  iconEl.style.fontSize = "2rem";
+  iconEl.style.marginBottom = "8px";
+  iconEl.textContent = passed ? "You Passed!" : "Not Quite!";
+  var headEl = document.createElement("div");
+  headEl.style.fontWeight = "800";
+  headEl.style.fontSize = "1rem";
+  headEl.style.color = passed ? "#81C784" : "#E57373";
+  headEl.style.marginBottom = "6px";
+  headEl.textContent = "Score: " + score + " out of " + qlist.length + " (" + pct + "%)";
+  var subEl = document.createElement("div");
+  subEl.style.fontSize = "0.78rem";
+  subEl.style.color = "rgba(255,255,255,0.5)";
+  subEl.textContent = passed ? "Great work! Keep learning." : "Review the lessons and try again.";
+  result.appendChild(iconEl);
+  result.appendChild(headEl);
+  result.appendChild(subEl);
+  document.querySelector(".qbox").appendChild(result);
+  document.getElementById("quizBack").textContent = passed ? "Close" : "Try Again";
+});
+
+document.getElementById("quizBack").addEventListener("click", function() {
+  document.getElementById("quizModal").classList.remove("active");
+  document.getElementById("quizSubmit").style.display = "block";
+  document.getElementById("quizModal").scrollTo(0, 0);
+});
+
+
+
+
+// Course preview buttons on landing
+document.querySelectorAll("[data-course]").forEach(function(btn) {
+  btn.addEventListener("click", function() { openLandModal("signup"); });
+});
+// ── SESSION RESTORE ON PAGE LOAD ──
+(function() {
+  if (window.location.hash && window.location.hash.indexOf("access_token") !== -1) {
+    handleOAuthCallback();
+    return;
+  }
+  tryRestoreSession().then(function(restored) {
+    if (restored && currentUser) { enterDashboardReal(); }
+  });
+})();
+
+</script>
+
+<nav id="mobileNav" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--dark);border-top:1px solid var(--b2);z-index:200;padding:6px 0;">
+  <div style="display:flex;justify-content:space-around;">
+    <button class="mnav-item active" data-dpage="dashboard" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;cursor:pointer;font-size:0.58rem;color:var(--muted);background:none;border:none;flex:1;"><div style="font-size:1.1rem;">🏠</div>Home</button>
+    <button class="mnav-item" data-dpage="mycourses" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;cursor:pointer;font-size:0.58rem;color:var(--muted);background:none;border:none;flex:1;"><div style="font-size:1.1rem;">📚</div>Courses</button>
+    <button class="mnav-item" data-dpage="progress" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;cursor:pointer;font-size:0.58rem;color:var(--muted);background:none;border:none;flex:1;"><div style="font-size:1.1rem;">📊</div>Progress</button>
+    <button class="mnav-item" data-dpage="quizzes" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;cursor:pointer;font-size:0.58rem;color:var(--muted);background:none;border:none;flex:1;"><div style="font-size:1.1rem;">🧠</div>Quizzes</button>
+    <button class="mnav-item" data-dpage="profile" style="display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 8px;cursor:pointer;font-size:0.58rem;color:var(--muted);background:none;border:none;flex:1;"><div style="font-size:1.1rem;">👤</div>Profile</button>
+  </div>
+</nav>
+</body>
+</html>
