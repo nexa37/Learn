@@ -723,7 +723,7 @@ nav#navbar { box-sizing:border-box; }
       </div>
       <input class="minput" type="email" id="signupEmail" placeholder="Email address"/>
       <input class="minput" type="password" id="signupPass" placeholder="Create password (min 6 chars)"/>
-      <div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark" style="margin-bottom:10px;transform:scale(0.85);transform-origin:left;"></div>
+      <div class="h-captcha" data-sitekey="ES_21b2eb36f71c4e77b293175d14d7d6b8" data-theme="dark" style="margin-bottom:10px;"></div>
       <button class="mbtn" id="doSignupBtn">Create Free Account</button>
     </div>
     <div class="mswitch">Already have an account? <a id="toLoginLink">Log in</a></div>
@@ -1216,17 +1216,36 @@ function authFetch(path, body) {
 }
 
 function supaSignup(first, last, email, password) {
-  return authFetch("/signup", { email: email, password: password, data: { first_name: first, last_name: last } })
-    .then(function(data) {
-      if (data.error) throw new Error(data.error.message || "Signup failed");
-      if (data.access_token) {
-        currentSession = data.access_token;
-        currentUser = { id: data.user.id, email: email, first: first, last: last };
-        saveSession(data.access_token, data.refresh_token);
-      }
+  return authFetch("/signup", {
+    email: email,
+    password: password,
+    data: { first_name: first, last_name: last }
+  }).then(function(data) {
+    if (data.error) {
+      var msg = data.error.message || data.msg || "Signup failed";
+      throw new Error(msg);
+    }
+    if (data.access_token) {
+      currentSession = data.access_token;
+      currentUser = { id: data.user.id, email: email, first: first, last: last };
+      saveSession(data.access_token, data.refresh_token || "");
       return data;
-    });
+    }
+    // No token = email confirmation required OR auto-confirm off
+    // Try immediate login
+    return authFetch("/token?grant_type=password", { email: email, password: password })
+      .then(function(loginData) {
+        if (loginData.access_token) {
+          currentSession = loginData.access_token;
+          currentUser = { id: loginData.user.id, email: email, first: first, last: last };
+          saveSession(loginData.access_token, loginData.refresh_token || "");
+          return loginData;
+        }
+        throw new Error("Account created! Please check your email to verify your account, then log in.");
+      });
+  });
 }
+
 
 function supaLogin(email, password) {
   return authFetch("/token?grant_type=password", { email: email, password: password })
@@ -1307,9 +1326,25 @@ function tryRestoreSession() {
 function loadUserProfile(userId, email) {
   return sbFetch("/profiles?id=eq." + userId + "&select=*", {})
     .then(function(data) {
-      if (data && data.length > 0) return data[0];
-      return { first_name: email ? email.split("@")[0] : "", last_name: "", email: email || "" };
-    }).catch(function() { return { first_name: email ? email.split("@")[0] : "", last_name: "", email: email || "" }; });
+      if (data && data.length > 0 && (data[0].first_name || data[0].email)) return data[0];
+      // Profile empty - create it
+      var firstName = email ? email.split("@")[0] : "Learner";
+      firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+      return sbFetch("/profiles", {
+        method: "POST",
+        headers: { "Prefer": "resolution=merge-duplicates,return=representation" },
+        body: { id: userId, first_name: firstName, last_name: "", email: email || "" }
+      }).then(function(created) {
+        if (created && created.length) return created[0];
+        return { first_name: firstName, last_name: "", email: email || "" };
+      }).catch(function() {
+        return { first_name: firstName, last_name: "", email: email || "" };
+      });
+    }).catch(function() {
+      var firstName = email ? email.split("@")[0] : "Learner";
+      firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+      return { first_name: firstName, last_name: "", email: email || "" };
+    });
 }
 
 function saveProfile(first, last, username, goal) {
@@ -1397,9 +1432,17 @@ function saveQuizResult(quizId, score, correct, total) {
 
 function updateAvatars() {
   if (!currentUser) return;
-  var ini = ((currentUser.first || "U").charAt(0) + (currentUser.last ? currentUser.last.charAt(0) : "")).toUpperCase();
+  var firstName = currentUser.first || "";
+  var lastName = currentUser.last || "";
+  // If no name, use email prefix
+  if (!firstName && currentUser.email) {
+    firstName = currentUser.email.split("@")[0];
+    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+    currentUser.first = firstName;
+  }
+  var ini = (firstName.charAt(0) + (lastName ? lastName.charAt(0) : "")).toUpperCase() || "U";
   ["davatarBtn","wbAvatar","bigAvatar"].forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = ini; });
-  var wn = document.getElementById("wbName"); if (wn) wn.textContent = currentUser.first || "Learner";
+  var wn = document.getElementById("wbName"); if (wn) wn.textContent = firstName || "Learner";
   var pf = document.getElementById("pfFirst"); if (pf) pf.value = currentUser.first || "";
   var pl = document.getElementById("pfLast"); if (pl) pl.value = currentUser.last || "";
   var pe = document.getElementById("pfEmail"); if (pe) pe.value = currentUser.email || "";
@@ -1576,14 +1619,25 @@ _on("googleSignupBtn","click", supaGoogleSignIn);
 _on("doLoginBtn","click", function() {
   var email = document.getElementById("loginEmail").value.trim();
   var pass = document.getElementById("loginPass").value;
-  if (!email || !pass) { toast("Please fill in all fields"); return; }
-  var btn = this; btn.textContent = "Signing in..."; btn.disabled = true;
+  if (!email) { toast("Please enter your email address"); return; }
+  if (!pass) { toast("Please enter your password"); return; }
+  var btn = document.getElementById("doLoginBtn");
+  btn.textContent = "Signing in...";
+  btn.disabled = true;
   supaLogin(email, pass).then(function() {
     closeLandModal("login");
     enterDashboardReal();
   }).catch(function(err) {
-    toast(err.message || "Login failed. Check your email and password.");
-    btn.textContent = "Log In"; btn.disabled = false;
+    var msg = err.message || "";
+    if (msg.indexOf("Invalid") !== -1 || msg.indexOf("credentials") !== -1) {
+      toast("Wrong email or password. Please try again.");
+    } else if (msg.indexOf("not found") !== -1) {
+      toast("No account found with this email. Sign up first.");
+    } else {
+      toast("Login failed: " + (msg || "Please try again."));
+    }
+    btn.textContent = "Log In";
+    btn.disabled = false;
   });
 });
 
@@ -1593,15 +1647,29 @@ _on("doSignupBtn","click", function() {
   var last = document.getElementById("signupLast").value.trim();
   var email = document.getElementById("signupEmail").value.trim();
   var pass = document.getElementById("signupPass").value;
-  if (!first || !email || !pass) { toast("Please fill in all required fields"); return; }
+  if (!first) { toast("Please enter your first name"); return; }
+  if (!email) { toast("Please enter your email address"); return; }
+  if (!pass) { toast("Please create a password"); return; }
   if (pass.length < 6) { toast("Password must be at least 6 characters"); return; }
-  var btn = this; btn.textContent = "Creating account..."; btn.disabled = true;
+  var btn = document.getElementById("doSignupBtn");
+  btn.textContent = "Creating account...";
+  btn.disabled = true;
   supaSignup(first, last, email, pass).then(function() {
     closeLandModal("signup");
     enterDashboardReal();
   }).catch(function(err) {
-    toast(err.message || "Signup failed. Try a different email.");
-    btn.textContent = "Create Free Account"; btn.disabled = false;
+    var msg = err.message || "";
+    if (msg.indexOf("already") !== -1 || msg.indexOf("registered") !== -1) {
+      toast("This email is already registered. Try logging in instead.");
+    } else if (msg.indexOf("valid") !== -1) {
+      toast("Please enter a valid email address.");
+    } else if (msg.indexOf("password") !== -1) {
+      toast("Password is too weak. Use at least 6 characters.");
+    } else {
+      toast("Signup failed: " + (msg || "Please try again."));
+    }
+    btn.textContent = "Create Free Account";
+    btn.disabled = false;
   });
 });
 
