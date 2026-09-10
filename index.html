@@ -534,7 +534,6 @@ nav#navbar { box-sizing:border-box; }
   
 }
 </style>
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body>
 
@@ -723,7 +722,6 @@ nav#navbar { box-sizing:border-box; }
       </div>
       <input class="minput" type="email" id="signupEmail" placeholder="Email address"/>
       <input class="minput" type="password" id="signupPass" placeholder="Create password (min 6 chars)"/>
-      <div class="h-captcha" data-sitekey="ES_21b2eb36f71c4e77b293175d14d7d6b8" data-theme="dark" style="margin-bottom:10px;"></div>
       <button class="mbtn" id="doSignupBtn">Create Free Account</button>
     </div>
     <div class="mswitch">Already have an account? <a id="toLoginLink">Log in</a></div>
@@ -1241,7 +1239,17 @@ function supaSignup(first, last, email, password) {
           saveSession(loginData.access_token, loginData.refresh_token || "");
           return loginData;
         }
-        throw new Error("Account created! Please check your email to verify your account, then log in.");
+        // Try logging in right away
+          return authFetch("/token?grant_type=password", { email: email, password: password })
+            .then(function(d) {
+              if (d.access_token) {
+                currentSession = d.access_token;
+                currentUser = { id: d.user.id, email: email, first: first, last: last };
+                saveSession(d.access_token, d.refresh_token || "");
+                return d;
+              }
+              throw new Error("Please check your email and click the verification link, then log in.");
+            });
       });
   });
 }
@@ -1286,14 +1294,32 @@ function handleOAuthCallback() {
     .then(function(r) { return r.json(); }).then(function(data) {
       if (data && data.id) {
         var meta = data.user_metadata || {};
-        var fn = meta.full_name ? meta.full_name.split(" ")[0] : (meta.name ? meta.name.split(" ")[0] : data.email.split("@")[0]);
-        var ln = meta.full_name ? meta.full_name.split(" ").slice(1).join(" ") : "";
+        // Google puts name in different fields - check all of them
+        var fullName = meta.full_name || meta.name || meta.display_name || "";
+        var fn = fullName ? fullName.split(" ")[0] : (data.email ? data.email.split("@")[0] : "User");
+        var ln = fullName ? fullName.split(" ").slice(1).join(" ") : "";
+        fn = fn.charAt(0).toUpperCase() + fn.slice(1);
         currentUser = { id: data.id, email: data.email, first: fn, last: ln };
+        // Save Google name to profile database
         fetch(SUPA_URL + "/rest/v1/profiles", {
           method: "POST",
-          headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + params.access_token, "Content-Type": "application/json", "Prefer": "resolution=merge-duplicates,return=minimal" },
-          body: JSON.stringify({ id: data.id, first_name: fn, last_name: ln, email: data.email })
-        }).then(function() { enterDashboardReal(); });
+          headers: {
+            "apikey": SUPA_KEY,
+            "Authorization": "Bearer " + params.access_token,
+            "Content-Type": "application/json",
+            "Prefer": "resolution=merge-duplicates,return=minimal"
+          },
+          body: JSON.stringify({
+            id: data.id,
+            first_name: fn,
+            last_name: ln,
+            email: data.email
+          })
+        }).then(function() {
+          enterDashboardReal();
+        }).catch(function() {
+          enterDashboardReal();
+        });
       }
     }).catch(function() { toast("Google sign-in failed. Please try again."); });
   return true;
@@ -1315,7 +1341,16 @@ function tryRestoreSession() {
       if (data && data.id) {
         currentSession = token;
         return loadUserProfile(data.id, data.email).then(function(profile) {
-          currentUser = { id: data.id, email: data.email, first: profile.first_name || data.email.split("@")[0], last: profile.last_name || "" };
+          var restoreName = profile.first_name || "";
+          if (!restoreName && data.user_metadata) {
+            var rMeta = data.user_metadata;
+            var rFull = rMeta.full_name || rMeta.name || rMeta.display_name || "";
+            restoreName = rFull ? rFull.split(" ")[0] : data.email.split("@")[0];
+            restoreName = restoreName.charAt(0).toUpperCase() + restoreName.slice(1);
+          }
+          if (!restoreName) restoreName = data.email.split("@")[0];
+          var restoreLast = profile.last_name || (data.user_metadata && (data.user_metadata.full_name || data.user_metadata.name) ? (data.user_metadata.full_name || data.user_metadata.name).split(" ").slice(1).join(" ") : "");
+          currentUser = { id: data.id, email: data.email, first: restoreName, last: restoreLast };
           return true;
         });
       }
@@ -1324,20 +1359,30 @@ function tryRestoreSession() {
 }
 
 function loadUserProfile(userId, email) {
-  return sbFetch("/profiles?id=eq." + userId + "&select=*", {})
+  return sbFetch("/profiles?id=eq." + userId + "&select=first_name,last_name,email,username,learning_goal", {})
     .then(function(data) {
-      if (data && data.length > 0 && (data[0].first_name || data[0].email)) return data[0];
-      // Profile empty - create it
-      var firstName = email ? email.split("@")[0] : "Learner";
-      firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-      return sbFetch("/profiles", {
-        method: "POST",
-        headers: { "Prefer": "resolution=merge-duplicates,return=representation" },
-        body: { id: userId, first_name: firstName, last_name: "", email: email || "" }
-      }).then(function(created) {
-        if (created && created.length) return created[0];
-        return { first_name: firstName, last_name: "", email: email || "" };
+      if (data && data.length > 0 && data[0].first_name) {
+        return data[0];
+      }
+      // Profile missing or empty name - try to get from auth metadata
+      return fetch(SUPA_URL + "/auth/v1/user", {
+        headers: { "apikey": SUPA_KEY, "Authorization": "Bearer " + currentSession }
+      }).then(function(r) { return r.json(); }).then(function(authData) {
+        var meta = (authData && authData.user_metadata) ? authData.user_metadata : {};
+        var fullName = meta.full_name || meta.name || "";
+        var firstName = fullName ? fullName.split(" ")[0] : (email ? email.split("@")[0] : "Learner");
+        var lastName = fullName ? fullName.split(" ").slice(1).join(" ") : "";
+        firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+        // Save to profiles table
+        sbFetch("/profiles", {
+          method: "POST",
+          headers: { "Prefer": "resolution=merge-duplicates,return=minimal" },
+          body: { id: userId, first_name: firstName, last_name: lastName, email: email || "" }
+        }).catch(function() {});
+        return { first_name: firstName, last_name: lastName, email: email || "" };
       }).catch(function() {
+        var firstName = email ? email.split("@")[0] : "Learner";
+        firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
         return { first_name: firstName, last_name: "", email: email || "" };
       });
     }).catch(function() {
